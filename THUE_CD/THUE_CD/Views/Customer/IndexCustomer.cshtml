@@ -1,10 +1,93 @@
 ﻿@model IEnumerable<THUE_CD.Models.Customer>
+@using THUE_CD.Models
 @{
     ViewBag.Title = "IndexCustomer";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <!-- MAIN CONTENT-->
+<!-- FORM ĐĂNG KÍ KHÁCH HÀNG-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add customer</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Xữ lý controller -->
+                <form class="mt-5" method="POST" asp-controller="" asp-action="addCustomer">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" class="form-control" id="FullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input type="text" class="form-control" id="Address" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="text" class="form-control" id="Phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Fine</label>
+                        <input type="text" readonly value="0" class="form-control" id="Fine" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Complete</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- FORM ĐĂNG KÍ KHÁCH HÀNG-->
+
+<!-- FORM SỬA THÔNG TIN-->
+<div class="modal fade" id="exampleModalUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update customer</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                    <!-- Xữ lý controller -->
+                <form class="mt-5" method="POST" asp-controller="Customer" asp-action="UpdateCustomer">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input value="" type="text" class="form-control" id="FullName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Address</label>
+                            <input value="" type="text" class="form-control" id="Address" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input value="" type="text" class="form-control" id="Phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Fine</label>
+                            <input value="" type="text" readonly class="form-control" id="Fine" required>
+                        </div>
+                    </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- FORM SỬA THÔNG TIN-->
+
 <div class="main-content">
     <div class="section__content section__content--p30">
         <div class="container-fluid">
@@ -12,8 +95,8 @@
                 <div class="col-md-12">
                     <div class="overview-wrap">
                         <h2 class="title-1">List Customer</h2>
-                        <button class="au-btn au-btn-icon au-btn--blue">
-                            <i class="zmdi zmdi-plus"></i>add Customer
+                        <button class="au-btn au-btn-icon au-btn--blue" data-toggle="modal" data-target="#exampleModal">
+                            <i class="zmdi zmdi-plus"></i>add
                         </button>
                     </div>
                 </div>
@@ -37,7 +120,7 @@
 
                             @foreach (var item in Model)
                             {
-                                <tbody>
+                                <tbody data-toggle="modal" data-target="#exampleModalUpdate">
                                     <tr>
                                         <td>@item.Id_Customer</td>
                                         <td>@item.FullName</td>
@@ -45,7 +128,7 @@
                                         <td>@item.Phone</td>
                                         <td>@item.Fine</td>
                                     </tr>
-                                </tbody> 
+                                </tbody>
                             }
 
                         </table>
@@ -64,3 +147,9 @@
     </div>
 </div>
 <!--END MAIN CONTENT-->
+
+
+<script type="text/javascript">
+
+   
+</script>
