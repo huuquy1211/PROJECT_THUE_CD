@@ -1,0 +1,66 @@
+﻿@model IEnumerable<THUE_CD.Models.Customer>
+@{
+    ViewBag.Title = "IndexCustomer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- MAIN CONTENT-->
+<div class="main-content">
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="overview-wrap">
+                        <h2 class="title-1">List Customer</h2>
+                        <button class="au-btn au-btn-icon au-btn--blue">
+                            <i class="zmdi zmdi-plus"></i>add Customer
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <hr />
+                    <div class="table-responsive table--no-card m-b-40">
+                        <table class="table table-borderless table-striped table-earning">
+
+                            <thead>
+                                <tr>
+                                    <th>ID customer</th>
+                                    <th>Full Name</th>
+                                    <th>Address</th>
+                                    <th>Phone</th>
+                                    <th>Fine</th>
+                                </tr>
+                            </thead>
+
+                            @foreach (var item in Model)
+                            {
+                                <tbody>
+                                    <tr>
+                                        <td>@item.Id_Customer</td>
+                                        <td>@item.FullName</td>
+                                        <td>@item.Address</td>
+                                        <td>@item.Phone</td>
+                                        <td>@item.Fine</td>
+                                    </tr>
+                                </tbody> 
+                            }
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="copyright">
+                        <p>Xây dựng phần mềm - Nhóm 5</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--END MAIN CONTENT-->
