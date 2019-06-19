@@ -3,112 +3,255 @@
     ViewBag.Title = "Index";
 }
 <!-- MAIN CONTENT-->
-<div class="main-content">
+<div class="main-content" style="padding-top:80px; line-height:1">
     <div class="section__content section__content--p30">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-12">
-                    <div class="overview-wrap">
-                        <h2 class="title-1">overview</h2>
-                        <button class="au-btn au-btn-icon au-btn--blue">
-                            <i class="zmdi zmdi-plus"></i>add item
-                        </button>
-                    </div>
-                </div>
-            </div>
-     
-            <div class="row">
-                <div class="col-lg-12">
-                    <hr />
-                    <div class="table-responsive table--no-card m-b-40">
-                        <table class="table table-borderless table-striped table-earning">
-                            <thead>
-                                <tr>
-                                    <th>date</th>
-                                    <th>order ID</th>
-                                    <th>name</th>
-                                    <th class="text-right">price</th>
-                                    <th class="text-right">quantity</th>
-                                    <th class="text-right">total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>2018-09-29 05:57</td>
-                                    <td>100398</td>
-                                    <td>iPhone X 64Gb Grey</td>
-                                    <td class="text-right">$999.00</td>
-                                    <td class="text-right">1</td>
-                                    <td class="text-right">$999.00</td>
-                                </tr>
-                                <tr>
-                                    <td>2018-09-28 01:22</td>
-                                    <td>100397</td>
-                                    <td>Samsung S8 Black</td>
-                                    <td class="text-right">$756.00</td>
-                                    <td class="text-right">1</td>
-                                    <td class="text-right">$756.00</td>
-                                </tr>
-                                <tr>
-                                    <td>2018-09-27 02:12</td>
-                                    <td>100396</td>
-                                    <td>Game Console Controller</td>
-                                    <td class="text-right">$22.00</td>
-                                    <td class="text-right">2</td>
-                                    <td class="text-right">$44.00</td>
-                                </tr>
-                                <tr>
-                                    <td>2018-09-26 23:06</td>
-                                    <td>100395</td>
-                                    <td>iPhone X 256Gb Black</td>
-                                    <td class="text-right">$1199.00</td>
-                                    <td class="text-right">1</td>
-                                    <td class="text-right">$1199.00</td>
-                                </tr>
-                                <tr>
-                                    <td>2018-09-25 19:03</td>
-                                    <td>100393</td>
-                                    <td>USB 3.0 Cable</td>
-                                    <td class="text-right">$10.00</td>
-                                    <td class="text-right">3</td>
-                                    <td class="text-right">$30.00</td>
-                                </tr>
-                                <tr>
-                                    <td>2018-09-29 05:57</td>
-                                    <td>100392</td>
-                                    <td>Smartwatch 4.0 LTE Wifi</td>
-                                    <td class="text-right">$199.00</td>
-                                    <td class="text-right">6</td>
-                                    <td class="text-right">$1494.00</td>
-                                </tr>
-                                <tr>
-                                    <td>2018-09-24 19:10</td>
-                                    <td>100391</td>
-                                    <td>Camera C430W 4k</td>
-                                    <td class="text-right">$699.00</td>
-                                    <td class="text-right">1</td>
-                                    <td class="text-right">$699.00</td>
-                                </tr>
-                                <tr>
-                                    <td>2018-09-22 00:43</td>
-                                    <td>100393</td>
-                                    <td>USB 3.0 Cable</td>
-                                    <td class="text-right">$10.00</td>
-                                    <td class="text-right">3</td>
-                                    <td class="text-right">$30.00</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+                <div class="col-lg-5">
+                    <div class="card">
+                        <div class="card-header" style="padding: 0.5rem 1.25rem;">
 
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="copyright">
-                        <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
+                            <form class="form-header" action="" method="POST">
+                                <input class="au-input au-input--xl" type="text" name="search" placeholder="Tìm kiếm ID khách hàng" style="min-width:260px" />
+                                <button class="au-btn--submit" type="submit">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-title" style="margin-bottom: -0.25rem;">
+                                <h3 class="text-center title-2" style="font-size: 20px;"><strong>Thông tin khách hàng</strong></h3>
+                            </div>
+                            <hr>
+                            <form action="" method="post" novalidate="novalidate">
+                                <div class="form-group">
+                                    <label for="cc-payment" class="control-label mb-1">Mã khách hàng:</label>
+                                </div>
+                                <div class="form-group has-success">
+                                    <label for="cc-name" class="control-label mb-1">Họ và tên:</label>
+                                    <span class="help-block field-validation-valid" data-valmsg-for="cc-name" data-valmsg-replace="true"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cc-number" class="control-label mb-1">Số điện thoại:</label>
+
+                                    <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cc-number" class="control-label mb-1">Địa chỉ:</label>
+
+                                    <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span>
+                                </div>
+
+                                <div>
+                                    <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
+
+                                        <span id="payment-button-amount">Lập phiếu thuê >></span>
+                                        <span id="payment-button-sending" style="display:none;">Sending…</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-7">
+                    <div class="card">
+                        <div class="card-header" style="font-size: 20px;">
+                            <h3 style="line-height:1.5"> <strong> Thông tin phiếu thuê</strong></h3>
+                        </div>
+                        <div class="card-body card-block">
+                            <form action="" method="post" class="form-horizontal">
+                                <div class="row form-group">
+                                    <div class="col col-md-5">
+                                        <label for="hf-email" class=" form-control-label">Mã phiếu thuê: </label>
+                                    </div>
+                                    <div class="col-12 col-md-7">
+                                        <label></label>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-5">
+                                        <label for="hf-password" class=" form-control-label">Mã khách hàng:</label>
+                                    </div>
+                                    <div class="col-12 col-md-7">
+                                        <label></label>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-5">
+                                        <label for="hf-password" class=" form-control-label">Ngày lập:</label>
+                                    </div>
+                                    <div class="col-12 col-md-7">
+                                        <label></label>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-5">
+                                        <label for="hf-password" class=" form-control-label"></label>
+                                    </div>
+                                    <div class="col-12 col-md-7">
+                                        <label></label>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-5">
+                                        <label for="hf-password" class=" form-control-label"></label>
+                                    </div>
+                                    <div class="col-12 col-md-7">
+                                        <label></label>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="card-footer">
+                            <div style="float:right">
+                                <button type="submit" class="btn btn-primary btn-sm">
+                                    <i class="fa fa-dot-circle-o"></i> Hủy
+                                </button>
+                                <button type="reset" class="btn btn-danger btn-sm">
+                                    <i class="fa fa-ban"></i> Xác nhận
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <div class="col-lg-5">
+                    <div class="card">
+                        <div class="card-header" style="padding: 0.5rem 1.25rem;">
+
+                            <form class="form-header" action="" method="POST">
+                                <input class="au-input au-input--xl" type="text" name="search" placeholder="Tìm kiếm ID item" style="min-width:260px" />
+                                <button class="au-btn--submit" type="submit">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-title" style="margin-bottom: -0.25rem;">
+                                <h3 class="text-center title-2" style="font-size: 20px;"><strong>Thông tin đĩa thuê</strong></h3>
+                            </div>
+                            <hr>
+                            <form action="" method="post" novalidate="novalidate">
+                                <div class="form-group">
+                                    <label for="cc-payment" class="control-label mb-1">Tiêu đề:</label>
+                                </div>
+                                <div class="form-group has-success">
+                                    <label for="cc-name" class="control-label mb-1">Loại:</label>
+                                    <span class="help-block field-validation-valid" data-valmsg-for="cc-name" data-valmsg-replace="true"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cc-number" class="control-label mb-1">Trạng thái:</label>
+
+                                    <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cc-number" class="control-label mb-1">Hạn cho thuê:</label>
+
+                                    <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span>
+                                </div>
+
+                                <div>
+                                    <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
+
+                                        <span id="payment-button-amount">Thêm >></span>
+                                        <span id="payment-button-sending" style="display:none;">Sending…</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-7">
+                    <!-- USER DATA-->
+                    @*<div class="menu-sidebar__content js-scrollbar1">
+                        <div class="navbar-sidebar" style="padding:0px">*@
+                    <div class="user-data m-b-30" style="padding-top:0px; margin-bottom:10px">
+                        <div class="card-header" style="font-size: 20px;">
+                            <h3 style="line-height:1.5"> <strong> Danh sách cho thuê</strong></h3>
+                        </div>
+
+                        <div class="table-responsive table-data" style="height:auto">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <td>
+                                            <label class="au-checkbox">
+                                                <input type="checkbox">
+                                                <span class="au-checkmark"></span>
+                                            </label>
+                                        </td>
+                                        <td>tiêu đề</td>
+                                        <td>loại</td>
+                                        <td>giá</td>
+                                        <td>giá</td>
+                                        <td>giá</td>
+                                        <td>giá</td>
+                                        <td></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <label class="au-checkbox">
+                                                <input type="checkbox">
+                                                <span class="au-checkmark"></span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <span>tran quang phuc</span>
+                                        </td>
+                                        <td>
+                                            <label>game</label>
+                                        </td>
+                                        <td>
+                                            <label>game</label>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label class="au-checkbox">
+                                                <input type="checkbox" checked="checked">
+                                                <span class="au-checkmark"></span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <div class="table-data__info">
+                                                <h6>lori lynch</h6>
+
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="role user">user</span>
+                                        </td>
+                                        <td>
+                                            <div class="rs-select2--trans rs-select2--sm">
+                                                <select class="js-select2" name="property">
+                                                    <option value="">Full Control</option>
+                                                    <option value="" selected="selected">Post</option>
+                                                    <option value="">Watch</option>
+                                                </select>
+                                                <div class="dropDownSelect2"></div>
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
                     </div>
                 </div>
+
+
+                <!-- END USER DATA-->
             </div>
         </div>
     </div>
