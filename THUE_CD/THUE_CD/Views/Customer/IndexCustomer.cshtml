@@ -1,5 +1,5 @@
-﻿@model IEnumerable<THUE_CD.Models.Customer>
-@using THUE_CD.Models
+﻿@model THUE_CD.Models.Customer
+
 @{
     ViewBag.Title = "IndexCustomer";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -20,34 +20,54 @@
             </div>
             <div class="modal-body">
                 <!-- Xữ lý controller -->
-                <form class="mt-5" method="POST" asp-controller="" asp-action="addCustomer">
-                    <div class="form-group">
-                        <label>Full Name</label>
-                        <input type="text" class="form-control" id="FullName" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Address</label>
-                        <input type="text" class="form-control" id="Address" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Phone</label>
-                        <input type="text" class="form-control" id="Phone" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Fine</label>
-                        <input type="text" readonly value="0" class="form-control" id="Fine" required>
-                    </div>
+                <form class="mt-5" method="POST" asp-controller="" asp-action="addCustomer" id="form">
+                    <fieldset id="SubmitForm">
+                        @Html.HiddenFor(m => m.Id_Customer, new { @id = "Cus_Id" })
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            @Html.TextBoxFor(m => m.FullName, new { @id = "Cus_Name", @class = "form-control", @placeholder = "Name*" })
+                        </div>
+                        <div class="form-group">
+                            <label>Address</label>
+                            @Html.TextBoxFor(m => m.Address, new { @id = "Cus_Address", @class = "form-control", @placeholder = "Address*" })
+                        </div>
+                        <div class="form-group">
+                            <label>Phone</label>
+                            @Html.TextBoxFor(m => m.Phone, new { @id = "Cus_Phone", @class = "form-control", @placeholder = "Phone*" })
+
+                        </div>
+                        <div class="form-group">
+                            <label>Fine</label>
+                            @Html.TextBoxFor(m => m.Fine, new { @id = "Cus_Fine", @class = "form-control", @placeholder = "Fine*" })
+
+                        </div>
+                    </fieldset>
+                    @*<div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" class="form-control" id="FullName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Address</label>
+                            <input type="text" class="form-control" id="Address" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="text" class="form-control" id="Phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Fine</label>
+                            <input type="text" readonly value="0" class="form-control" id="Fine" required>
+                        </div>*@
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Complete</button>
+                <button type="button" class="btn btn-primary" id="saveCustomer">Complete</button>
             </div>
         </div>
     </div>
 </div>
 <!-- FORM ĐĂNG KÍ KHÁCH HÀNG-->
-
 <!-- FORM SỬA THÔNG TIN-->
 <div class="modal fade" id="exampleModalUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -59,25 +79,25 @@
                 </button>
             </div>
             <div class="modal-body">
-                    <!-- Xữ lý controller -->
+                <!-- Xữ lý controller -->
                 <form class="mt-5" method="POST" asp-controller="Customer" asp-action="UpdateCustomer">
-                        <div class="form-group">
-                            <label>Full Name</label>
-                            <input value="" type="text" class="form-control" id="FullName" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Address</label>
-                            <input value="" type="text" class="form-control" id="Address" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Phone</label>
-                            <input value="" type="text" class="form-control" id="Phone" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Fine</label>
-                            <input value="" type="text" readonly class="form-control" id="Fine" required>
-                        </div>
-                    </form>
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input value="" type="text" class="form-control" id="FullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input value="" type="text" class="form-control" id="Address" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input value="" type="text" class="form-control" id="Phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Fine</label>
+                        <input value="" type="text" readonly class="form-control" id="Fine" required>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -106,8 +126,7 @@
                 <div class="col-lg-12">
                     <hr />
                     <div class="table-responsive table--no-card m-b-40">
-                        <table class="table table-borderless table-striped table-earning">
-
+                        <table class="table table-borderless table-striped table-earning" id="myDatatable">
                             <thead>
                                 <tr>
                                     <th>ID customer</th>
@@ -115,21 +134,15 @@
                                     <th>Address</th>
                                     <th>Phone</th>
                                     <th>Fine</th>
+                                    @*<th>Action(Edit)</th>
+                                    <th>Action(Delete)</th>*@
                                 </tr>
                             </thead>
-
-                            @foreach (var item in Model)
-                            {
-                                <tbody data-toggle="modal" data-target="#exampleModalUpdate">
-                                    <tr>
-                                        <td>@item.Id_Customer</td>
-                                        <td>@item.FullName</td>
-                                        <td>@item.Address</td>
-                                        <td>@item.Phone</td>
-                                        <td>@item.Fine</td>
-                                    </tr>
-                                </tbody>
-                            }
+                            @*<tbody id="SetCustomerList" data-toggle="modal" data-target="#exampleModalUpdate">
+                                <tr id="LoadingStatus">
+                                    
+                                </tr>
+                            </tbody>*@
 
                         </table>
                     </div>
@@ -148,8 +161,70 @@
 </div>
 <!--END MAIN CONTENT-->
 
+@*<script>
+    $("#LoadingStatus").html("Loading....");
+    $.get("/Customer/GetCustomerList", null, DataBind);
+    function DataBind(StudentList) {
+        //This Code For Receive All Data From Controller And Show It In Client Side
+        var SetData = $("#SetCustomerList");
+        for (var i = 0; i < CusList.length; i++) {
+            var Data = "<tr class='row_" + CusList[i].Id_Customer + "'>" +
+                "<td>" + CusList[i].Id_Customer + "</td>" +
+                "<td>" + CusList[i].FullName + "</td>" +
+                "<td>" + CusList[i].Address + "</td>" +
+                "<td>" + CusList[i].Phone + "</td>" +
+                "<td>" + CusList[i].Fine + "</td>" +
+                "<td>" + "<a href='#' class='btn btn-warning' onclick='EditStudentRecord(" + CusList[i].Id_Customer + ")' ><span class='glyphicon glyphicon-edit'></span></a>" + "</td>" +
+                "<td>" + "<a href='#' class='btn btn-danger' onclick='DeleteStudentRecord(" + CusList[i].Id_Customer + ")'><span class='glyphicon glyphicon-trash'></span></a>" + "</td>" +
+                "</tr>";
+            SetData.append(Data);
+            $("#LoadingStatus").html(" ");
 
-<script type="text/javascript">
+        }
+    }
+</script>*@
 
-   
+@*<script type="text/javascript">
+    $("SetCustomerList").html("Loading....")
+    $get("/Customer/GetCustomerList", null, Databind);
+    function Databind(CusList) {
+        var SetData = $("SetCustomerList");
+        for (var i = 0; i < CusList.length; i++) {
+            var Data = "<tr class = row_" + CusList[i].Id_Customer + "'>" +
+                "<td>" + CusList[i].Id_Customer + "</td>" +
+                "<td>" + CusList[i].FullName + "</td>" +
+                "<td>" + CusList[i].Address + "</td>" +
+                "<td>" + CusList[i].Phone + "</td>" +
+                "<td>" + CusList[i].Fine + "</td>" +
+                "<td>" + "<a href='#' class='btn btn - warning' onclick='EditCustomer()'><span class='glyphicon glyphicon - edit'></span></a>" + "</td>" +
+                "<td>" + "<a href='#' class='btn btn - danger' onclick='DeleteCustomer()'><span class='glyphicon glyphicon - trash'></span></a>" + "</td>"
+            "</tr>";
+
+            SetData.append(Data);
+            $("#LoadingStatus").html(" ");
+        }
+    }
+</script>*@
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var oTable = $('#myDatatable').DataTable({
+            "ajax": {
+                "url": '/Customer/GetCustomer',
+                "type": "get",
+                "datatype" : "json"
+            },
+            "columns": [
+                { "data": "Id_Customer", "autoWidth": true },
+                { "data": "FullName", "autoWidth": true },
+                { "data": "Address", "autoWidth": true },
+                { "data": "Phone", "autoWidth": true },
+                { "data": "Fine", "autoWidth": true },
+            ]
+                
+        })
+    })
 </script>
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="http://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
