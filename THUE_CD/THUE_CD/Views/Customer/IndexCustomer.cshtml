@@ -69,43 +69,43 @@
 </div>
 <!-- FORM ĐĂNG KÍ KHÁCH HÀNG-->
 <!-- FORM SỬA THÔNG TIN-->
-<div class="modal fade" id="exampleModalUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Update customer</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- Xữ lý controller -->
-                <form class="mt-5" method="POST" asp-controller="Customer" asp-action="UpdateCustomer">
-                    <div class="form-group">
-                        <label>Full Name</label>
-                        <input value="" type="text" class="form-control" id="FullName" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Address</label>
-                        <input value="" type="text" class="form-control" id="Address" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Phone</label>
-                        <input value="" type="text" class="form-control" id="Phone" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Fine</label>
-                        <input value="" type="text" readonly class="form-control" id="Fine" required>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save</button>
+@*<div class="modal fade" id="exampleModalUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update customer</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                     Xữ lý controller
+                    <form class="mt-5" method="POST" asp-controller="Customer" asp-action="UpdateCustomer">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input value="" type="text" class="form-control" id="FullName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Address</label>
+                            <input value="" type="text" class="form-control" id="Address" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input value="" type="text" class="form-control" id="Phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Fine</label>
+                            <input value="" type="text" readonly class="form-control" id="Fine" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+    </div>*@
 <!-- FORM SỬA THÔNG TIN-->
 
 <div class="main-content">
@@ -134,15 +134,13 @@
                                     <th>Address</th>
                                     <th>Phone</th>
                                     <th>Fine</th>
-                                    @*<th>Action(Edit)</th>
-                                    <th>Action(Delete)</th>*@
+                                    <th>Action(Edit)</th>
+                                    <th>Action(Delete)</th>
                                 </tr>
                             </thead>
-                            @*<tbody id="SetCustomerList" data-toggle="modal" data-target="#exampleModalUpdate">
-                                <tr id="LoadingStatus">
-                                    
-                                </tr>
-                            </tbody>*@
+                            <tbody id="SetCustomerList" data-toggle="modal" data-target="#exampleModalUpdate">
+                                <tr id="LoadingStatus"></tr>
+                            </tbody>
 
                         </table>
                     </div>
@@ -161,70 +159,69 @@
 </div>
 <!--END MAIN CONTENT-->
 
-@*<script>
-    $("#LoadingStatus").html("Loading....");
-    $.get("/Customer/GetCustomerList", null, DataBind);
-    function DataBind(StudentList) {
-        //This Code For Receive All Data From Controller And Show It In Client Side
-        var SetData = $("#SetCustomerList");
-        for (var i = 0; i < CusList.length; i++) {
-            var Data = "<tr class='row_" + CusList[i].Id_Customer + "'>" +
-                "<td>" + CusList[i].Id_Customer + "</td>" +
-                "<td>" + CusList[i].FullName + "</td>" +
-                "<td>" + CusList[i].Address + "</td>" +
-                "<td>" + CusList[i].Phone + "</td>" +
-                "<td>" + CusList[i].Fine + "</td>" +
-                "<td>" + "<a href='#' class='btn btn-warning' onclick='EditStudentRecord(" + CusList[i].Id_Customer + ")' ><span class='glyphicon glyphicon-edit'></span></a>" + "</td>" +
-                "<td>" + "<a href='#' class='btn btn-danger' onclick='DeleteStudentRecord(" + CusList[i].Id_Customer + ")'><span class='glyphicon glyphicon-trash'></span></a>" + "</td>" +
-                "</tr>";
-            SetData.append(Data);
-            $("#LoadingStatus").html(" ");
-
-        }
-    }
-</script>*@
-
-@*<script type="text/javascript">
-    $("SetCustomerList").html("Loading....")
-    $get("/Customer/GetCustomerList", null, Databind);
-    function Databind(CusList) {
-        var SetData = $("SetCustomerList");
-        for (var i = 0; i < CusList.length; i++) {
-            var Data = "<tr class = row_" + CusList[i].Id_Customer + "'>" +
-                "<td>" + CusList[i].Id_Customer + "</td>" +
-                "<td>" + CusList[i].FullName + "</td>" +
-                "<td>" + CusList[i].Address + "</td>" +
-                "<td>" + CusList[i].Phone + "</td>" +
-                "<td>" + CusList[i].Fine + "</td>" +
-                "<td>" + "<a href='#' class='btn btn - warning' onclick='EditCustomer()'><span class='glyphicon glyphicon - edit'></span></a>" + "</td>" +
-                "<td>" + "<a href='#' class='btn btn - danger' onclick='DeleteCustomer()'><span class='glyphicon glyphicon - trash'></span></a>" + "</td>"
-            "</tr>";
-
-            SetData.append(Data);
-            $("#LoadingStatus").html(" ");
-        }
-    }
-</script>*@
-<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script>
-    $(document).ready(function () {
-        var oTable = $('#myDatatable').DataTable({
-            "ajax": {
-                "url": '/Customer/GetCustomer',
-                "type": "get",
-                "datatype" : "json"
-            },
-            "columns": [
-                { "data": "Id_Customer", "autoWidth": true },
-                { "data": "FullName", "autoWidth": true },
-                { "data": "Address", "autoWidth": true },
-                { "data": "Phone", "autoWidth": true },
-                { "data": "Fine", "autoWidth": true },
-            ]
-                
+    //$("#LoadingStatus").html("Loading....");
+    //$.get("/Customer/GetCustomerList", null, DataBind);
+
+
+    $(document).ready(function (evt) {
+        var input1 = "";
+        $.ajax({
+            type: 'GET',
+            cache: false,
+            url: './GetCustomerList',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            data: JSON.stringify({ input: input1 }),
+            success:
+                function DataBind(CusList) {
+                    //This Code For Receive All Data From Controller And Show It In Client Side
+                    var SetData = $("#SetCustomerList");
+                    for (var i = 0; i < CusList.length; i++) {
+                        var Data = "<tr class='row_" + CusList[i].Id_Customer + "'>" +
+                            "<td>" + CusList[i].Id_Customer + "</td>" +
+                            "<td>" + CusList[i].FullName + "</td>" +
+                            "<td>" + CusList[i].Address + "</td>" +
+                            "<td>" + CusList[i].Phone + "</td>" +
+                            "<td>" + CusList[i].Fine + "</td>" +
+                            "<td>" + "<a href='#' class='btn btn-warning' onclick='EditCustomerRecord(" + CusList[i].Id_Customer + ")' ><span class='glyphicon glyphicon-edit'></span></a>" + "</td>" +
+                            "<td>" + "<a href='#' class='btn btn-danger' onclick='DeleteCustomerRecord(" + CusList[i].Id_Customer + ")'><span class='glyphicon glyphicon-trash'></span></a>" + "</td>" +
+                            "</tr>";
+                        SetData.append(Data);
+                        $("#LoadingStatus").html(" ");
+                    }
+                },
+            error: function (msg) {
+
+                alert('Không thành công');
+            }
         })
-    })
+
+    });
+
 </script>
 
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-<link rel="stylesheet" href="http://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
+@*<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var oTable = $('#myDatatable').DataTable({
+                "ajax": {
+                    "url": '/Customer/GetCustomer',
+                    "type": "get",
+                    "datatype" : "json"
+                },
+                "columns": [
+                    { "data": "Id_Customer", "autoWidth": true },
+                    { "data": "FullName", "autoWidth": true },
+                    { "data": "Address", "autoWidth": true },
+                    { "data": "Phone", "autoWidth": true },
+                    { "data": "Fine", "autoWidth": true },
+                ]
+
+            })
+        })
+    </script>
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />*@

@@ -5,6 +5,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using THUE_CD.Models;
+using Newtonsoft.Json;
+using THUE_CD.ViewModels;
 
 namespace THUE_CD.Controllers
 {
@@ -20,17 +22,19 @@ namespace THUE_CD.Controllers
             //var Cus = db.Customers.ToList();
             //return View(Cus);
         }
-
+        [HttpGet]
         public JsonResult GetCustomerList()
         {
-            List<Customer> CusList = db.Customers.Where(x => x.Fine == 0).Select(x => new Customer
-            {
-                Id_Customer = x.Id_Customer,
-                FullName = x.FullName,
-                Address = x.Address,
-                Phone = x.Phone,
-                Fine = x.Fine
-            }).ToList();
+            List<Customer> CusList = db.Customers.Select( x=>
+                new Customer
+                {
+                    Id_Customer = x.Id_Customer,
+                    Address = x.Address,
+                    Fine = x.Fine,
+                    FullName = x.FullName,
+                    Phone =x.Phone
+                }
+                ).ToList();
             return Json(CusList, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
