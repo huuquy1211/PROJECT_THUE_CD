@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using THUE_CD.Models;
 using Newtonsoft.Json;
-using THUE_CD.ViewModels;
+using THUE_CD.ViewCustomer;
 
 namespace THUE_CD.Controllers
 {
@@ -22,11 +22,50 @@ namespace THUE_CD.Controllers
             //var Cus = db.Customers.ToList();
             //return View(Cus);
         }
+
+        [HttpPost]
+        public JsonResult SaveCustomerInDatabase(ModelCustomer model)
+        {
+            var result = false;
+            try
+            {
+                if(model.Id_Customer > 0)
+                {
+                    Customer Cus = db.Customers.SingleOrDefault(x => x.Id_Customer == model.Id_Customer);
+                    Cus.FullName = model.FullName;
+                    Cus.Address = model.Address;
+                    Cus.Phone = model.Phone;
+                    Cus.Fine = model.Fine;
+                    db.SaveChanges();
+                    result = true;
+                }
+                else
+                {
+                    Customer Cus = new Customer();
+                    Cus.FullName = model.FullName;
+                    Cus.Address = model.Address;
+                    Cus.Phone = model.Phone;
+                    Cus.Fine = model.Fine;
+
+
+                    db.Customers.Add(Cus);
+                    db.SaveChanges();
+                    result = true;
+                }
+            }
+            catch
+            {
+                throw new HttpException(404, "Add false");
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+
         [HttpGet]
         public JsonResult GetCustomerList()
         {
-            List<Customer> CusList = db.Customers.Select( x=>
-                new Customer
+            List<ModelCustomer> CusList = db.Customers.Select( x=>
+                new ModelCustomer
                 {
                     Id_Customer = x.Id_Customer,
                     Address = x.Address,
@@ -37,12 +76,19 @@ namespace THUE_CD.Controllers
                 ).ToList();
             return Json(CusList, JsonRequestBehavior.AllowGet);
         }
-        [HttpGet]
-        public ActionResult GetCustomer()
+
+        public JsonResult GetCustomerById(int Id_Customer)
         {
-            var Cus = db.Customers.OrderBy(a => a.Id_Customer).ToList();
-            return Json(new { data = Cus }, JsonRequestBehavior.AllowGet);
+            Customer model = db.Customers.Where(x => x.Id_Customer == Id_Customer).SingleOrDefault();
+            string value = string.Empty;
+
+            value = JsonConvert.SerializeObject(model, Formatting.Indented, new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
+            return Json(value, JsonRequestBehavior.AllowGet);
         }
+
         [HttpPost]
         public ActionResult UpdateCustomer(int id)
         {
