@@ -4,8 +4,8 @@
     ViewBag.Title = "IndexCustomer";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <!-- MAIN CONTENT-->
 <!-- FORM ĐĂNG KÍ KHÁCH HÀNG-->
@@ -43,8 +43,8 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" id="SaveCustomerRecord">Complete</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancle</button>
+                            <button type="button" class="btn btn-primary" id="SaveCustomerRecord">Confirm</button>
                         </div>
                     </fieldset>
 
@@ -55,11 +55,26 @@
     </div>
 </div>
 <!-- FORM ĐĂNG KÍ KHÁCH HÀNG-->
+<!-- FORM XOA-->
+<div class="modal fade" id="DeleteConfirmation">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Customer Record</h4>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
 
-<!-- FORM SỬA THÔNG TIN-->
-
-<!-- FORM SỬA THÔNG TIN-->
-
+            </div>
+            <div class="modal-body">
+                <h4>Are You Sure? You Want To Delete This Customer?</h4>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-primary" data-dismiss="modal" id="r">Cancle</a>
+                <a href="#" class="btn btn-danger" onclick="ConfirmDelete()">Confirm</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- FORM LOAD DANH SACH KHACH HANG-->
 <div class="main-content">
     <div class="section__content section__content--p30">
         <div class="container-fluid">
@@ -77,7 +92,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <hr />
-                    <div class="table-responsive table--no-card m-b-40">s
+                    <div class="table-responsive table--no-card m-b-40">
                         <table class="table table-borderless table-striped table-earning" id="myDatatable">
                             <thead>
                                 <tr>
@@ -86,7 +101,6 @@
                                     <th>Address</th>
                                     <th>Phone</th>
                                     <th>Fine</th>
-                                    <th>Action(Edit)</th>
                                     <th>Action(Delete)</th>
                                 </tr>
                             </thead>
@@ -109,6 +123,7 @@
         </div>
     </div>
 </div>
+
 <!--END MAIN CONTENT-->
 
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
@@ -134,25 +149,25 @@
                             "<td onclick='EditCustomerRecord(" + CusList[i].Id_Customer + ")'>" + CusList[i].Address + "</td>" +
                             "<td onclick='EditCustomerRecord(" + CusList[i].Id_Customer + ")'>" + CusList[i].Phone + "</td>" +
                             "<td onclick='EditCustomerRecord(" + CusList[i].Id_Customer + ")'>" + CusList[i].Fine + "</td>" +
-                            "<td onclick='EditCustomerRecord(" + CusList[i].Id_Customer + ")'>" + "<a href='#' class='btn btn-warning'><span class='glyphicon glyphicon-edit'></span></a>" + "</td>" +
-                            "<td>" + "<a href='#' class='btn btn-danger' onclick='DeleteCustomerRecord(" + CusList[i].Id_Customer + ")'><span class='glyphicon glyphicon-trash'></span></a>" + "</td>" +
+                            //"<td onclick='EditCustomerRecord(" + CusList[i].Id_Customer + ")'>" + "<a href='#' class='btn btn-warning'><span class='glyphicon glyphicon-edit'></span></a>" + "</td>" +
+                            "<td>" + "<a href='#' class='btn btn-danger' onclick='DeleteCustomerRecord(" + CusList[i].Id_Customer + ")'><span class='glyphicon glyphicon-trash'>Delete</span></a>" + "</td>" +
                             "</tr>";
                         SetData.append(Data);
                         $("#LoadingStatus").html(" ");
                     }
                 },
-            
+
             error: function (msg) {
 
                 alert('Không thành công');
             }
 
         })
-      
+
     });
 
     function DeleteCustomerRecord(cusId) {
-       
+
         alert(cusId);
     }
 
@@ -181,7 +196,7 @@
             }
         });
     }
-
+    //Save
     $("#SaveCustomerRecord").click(function () {
         var data = $("#form").serialize();
         $.ajax({
@@ -195,6 +210,26 @@
             }
         })
     })
+
+    var DeleteCustomerRecord = function (Id_Customer) {
+        $("#Cus_Id").val(Id_Customer);
+        $("#DeleteConfirmation").modal("show");
+    }
+    var ConfirmDelete = function () {
+        var Cus_Id = $("#Cus_Id").val();
+        $.ajax({
+            type: "POST",
+            url: "/Customer/DeleteCustomerRecord?Id_Customer=" + Cus_Id,
+            success: function (result) {
+                $("#DeleteConfirmation").modal("hide");
+                $(".row_" + Cus_Id).remove();
+            },
+            error: function () {
+
+                alert('Không thành công');
+            }
+        })
+    }
 </script>
 
 

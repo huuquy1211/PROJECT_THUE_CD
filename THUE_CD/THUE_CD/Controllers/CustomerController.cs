@@ -23,6 +23,7 @@ namespace THUE_CD.Controllers
             //return View(Cus);
         }
 
+        //Nut save
         [HttpPost]
         public JsonResult SaveCustomerInDatabase(ModelCustomer model)
         {
@@ -104,6 +105,27 @@ namespace THUE_CD.Controllers
             }
             return View(model);
 
+        }
+
+        [HttpPost]
+        public JsonResult DeleteCustomerRecord(int Id_Customer)
+        {
+            bool result = false;
+            Customer Cus = db.Customers.SingleOrDefault(x => x.Id_Customer == Id_Customer);
+            Order Or = db.Orders.SingleOrDefault(x => x.Id_Customer == Id_Customer);
+            var id_ord = Or.Id_Order;
+            OrderDetail OrD = db.OrderDetails.SingleOrDefault(x => x.Id_Order == id_ord);
+
+            if (Cus != null && Or != null & OrD != null)
+            {
+                db.OrderDetails.Remove(OrD);
+                db.Orders.Remove(Or);
+                db.Customers.Remove(Cus);
+                db.SaveChanges();
+                result = true;
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
     }
