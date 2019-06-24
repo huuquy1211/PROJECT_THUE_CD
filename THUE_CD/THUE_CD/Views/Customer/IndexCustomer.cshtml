@@ -7,8 +7,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="~/js/Test.js"></script>
 <!-- MAIN CONTENT-->
-<!-- FORM ĐĂNG KÍ KHÁCH HÀNG-->
+<!-- FORM ADD, EDIT KHÁCH HÀNG-->
 <div class="modal fade" id="MyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -37,9 +38,8 @@
 
                         </div>
                         <div class="form-group">
-                            <label>Fine</label>
-                            @Html.TextBoxFor(m => m.Fine, new { @id = "Cus_Fine", @class = "form-control" })
-
+                            <label id="lbFine">Fine</label>
+                            @Html.TextBoxFor(m => m.Fine, new { @id = "Cus_Fine", @class = "form-control"})
                         </div>
 
                         <div class="modal-footer">
@@ -54,7 +54,7 @@
         </div>
     </div>
 </div>
-<!-- FORM ĐĂNG KÍ KHÁCH HÀNG-->
+
 <!-- FORM XOA-->
 <div class="modal fade" id="DeleteConfirmation">
     <div class="modal-dialog">
@@ -93,8 +93,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <hr />
-                    <div class="table-responsive table--no-card m-b-40">
-                        <table class="table table-borderless table-striped table-earning" id="myDatatable">
+                    <div class="table-responsive table--no-card m-b-40 table-data">
+                        <table class="table table-borderless table-striped table-earning table-data3" id="myDatatable">
                             <thead>
                                 <tr>
                                     <th>ID customer</th>
@@ -102,7 +102,7 @@
                                     <th>Address</th>
                                     <th>Phone</th>
                                     <th>Fine</th>
-                                    <th>Action(Delete)</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody id="SetCustomerList" data-toggle="modal">
@@ -129,7 +129,7 @@
 
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script>
-
+    //Show danh sach cac customer len
     $(document).ready(function (evt) {
         var input1 = "";
         $.ajax({
@@ -167,18 +167,18 @@
 
     });
 
-    function DeleteCustomerRecord(cusId) {
-
-        alert(cusId);
-    }
-
     //Show The Popup Modal For Add New Customer
     function AddNewCustomer(Id_Customer) {
         $("#form")[0].reset();
         $("#Cus_Id").val(0);
         $("#ModalTitle").html("Add New Customer");
         $("#MyModal").modal();
+
+        $("#Cus_Fine").val(0).prop("disabled", true);
+        //$("#lbFine").hide = true;
+        
     }
+
     //Show The Popup Modal For Edit Customer Record
     function EditCustomerRecord(Id_Customer) {
         $("#ModalTitle").html("Update Customer Record");
@@ -197,6 +197,7 @@
             }
         });
     }
+
     //Save
     $("#SaveCustomerRecord").click(function () {
         var data = $("#form").serialize();
@@ -212,10 +213,13 @@
         })
     })
 
+    //Thoong baso xoa customer
     var DeleteCustomerRecord = function (Id_Customer) {
         $("#Cus_Id").val(Id_Customer);
         $("#DeleteConfirmation").modal("show");
     }
+
+    //Xoa customer
     var ConfirmDelete = function () {
         var Cus_Id = $("#Cus_Id").val();
         $.ajax({
@@ -230,6 +234,17 @@
                 alert('Không thành công');
             }
         })
+    }
+
+    //Kiểm tra thông tin
+    function myFunction() {
+        document.getElementById("Cus_Id").required = true;
+        document.getElementById("Cus_Address").required = true;
+        document.getElementById("Cus_Name").required = true;
+        document.getElementById("Cus_Phone").required = true;
+        document.getElementById("Cus_Fine").required = true;
+
+        document.getElementById("demo").innerHTML = "The required property was set. The email field must now be filled out before submitting the form.";
     }
 </script>
 

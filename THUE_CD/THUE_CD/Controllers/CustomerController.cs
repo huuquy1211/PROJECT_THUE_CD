@@ -116,13 +116,22 @@ namespace THUE_CD.Controllers
             var id_ord = Or.Id_Order;
             OrderDetail OrD = db.OrderDetails.SingleOrDefault(x => x.Id_Order == id_ord);
 
-            if (Cus != null && Or != null & OrD != null)
+            if (Cus != null)
             {
-                db.OrderDetails.Remove(OrD);
-                db.Orders.Remove(Or);
-                db.Customers.Remove(Cus);
-                db.SaveChanges();
-                result = true;
+                if(Or != null && OrD != null)
+                {
+                    db.OrderDetails.Remove(OrD);
+                    db.Orders.Remove(Or);
+                    db.Customers.Remove(Cus);
+                    db.SaveChanges();
+                    result = true;
+                }
+                else
+                {
+                    db.Customers.Remove(Cus);
+                    db.SaveChanges();
+                    result = true;
+                }
             }
 
             return Json(result, JsonRequestBehavior.AllowGet);

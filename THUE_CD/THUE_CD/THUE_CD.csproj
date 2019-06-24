@@ -137,6 +137,7 @@
     <Content Include="images\icon\logo.png" />
     <Content Include="images\icon\Untitled-1.jpg" />
     <Content Include="js\main.js" />
+    <Content Include="js\Test.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\poppins\poppins-v5-latin-100.eot" />
