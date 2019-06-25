@@ -9,5 +9,9 @@ namespace THUE_CD.ViewModel
     {
         public int Id_Title { get; set; }
         public string TitleName { get; set; }
+        public int Id_Type { get; set; }
+        public string TypeName { get; set; }
+        public int Count { get; set; }
+
     }
 }

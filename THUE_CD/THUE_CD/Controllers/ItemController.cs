@@ -66,6 +66,7 @@ namespace THUE_CD.Controllers
                 if (item != null)
                 {
                     item.Id_Title = Id_Title;
+                    item.Status = Status;
                     db.SaveChanges();
                 }
                 else

@@ -1,15 +1,16 @@
-﻿@model THUE_CD.Models.Item
-@using THUE_CD.ViewModel;
+﻿@model THUE_CD.Models.Title
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <!-- MAIN CONTENT-->
-<!-- FORM Item-->
+<!-- FORM Title-->
 <div class="modal fade" id="MyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -23,28 +24,19 @@
                 <!-- Xữ lý controller -->
                 <form class="mt-5" method="POST" id="form">
                     <fieldset id="SubmitForm">
-                        <label>Mã Đĩa</label>
-                        @Html.TextBoxFor(m => m.Id_Item , new { @id = "Item_Id", disabled = true } )
+                        <label>Mã Tiêu Đề</label>
+                        @Html.TextBoxFor(m => m.Id_Title, new { @id = "Title_Id", disabled = true })
                         <div class="form-group" id="Title">
-                            <label>Tựa Đĩa</label>
-                            <select id="SelectTitle" onchange="SelectChange()">         
-                            </select>
+                        <label>Tiêu Đề</label>
+                        @Html.TextBoxFor(m => m.Name, new { @id = "Title_Name" })
                         </div>
                         <div class="form-group" id="TypeDisk">
                             <label>Loại Đĩa</label>
-                            <select id="SelectType" ></select>
-                        </div>
-                        <div class="form-group" id="Status">
-                            <label>Trạng thái</label>
-                            <select id="SelectStatus">
-                                <option value="Trên Kệ">Trên Kệ</option>
-                                <option value="Đã được thuê">Đã được thuê</option>
-                                <option value="Đã đặt trước">Đã đặt trước</option>
-                            </select>
+                            <select id="SelectType"></select>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
-                            <button type="button" class="btn btn-primary" id="SaveItemRecord">Xác Nhận</button>
+                            <button type="button" class="btn btn-primary" id="SaveTitleRecord">Xác Nhận</button>
                         </div>
                     </fieldset>
 
@@ -54,36 +46,36 @@
         </div>
     </div>
 </div>
-<!-- FORM ĐĂNG KÍ KHÁCH HÀNG-->
+
 <!-- FORM XOA-->
 <div class="modal fade" id="DeleteConfirmation">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Xóa Đĩa</h4>
+                <h4 class="modal-title">Xóa Tiêu Đề</h4>
                 <a href="#" class="close" data-dismiss="modal">&times;</a>
 
             </div>
             <div class="modal-body">
-                <h4>Bạn muốn xóa đĩa này?</h4>
+                <h4>Bạn muốn xóa tiêu đề này?</h4>
             </div>
             <div class="modal-footer">
-                <a href="#" class="btn btn-primary" data-dismiss="modal" id="r">Cancle</a>
-                <a href="#" class="btn btn-danger" onclick="ConfirmDelete()">Confirm</a>
+                <a href="#" class="btn btn-primary" data-dismiss="modal" id="r">Hủy</a>
+                <a href="#" class="btn btn-danger" onclick="ConfirmDelete()">Xác Nhận</a>
             </div>
         </div>
     </div>
 </div>
-<!-- FORM LOAD DANH SACH KHACH HANG-->
+<!-- FORM LOAD DANH SACH TIEU DE-->
 <div class="main-content">
     <div class="section__content section__content--p30">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
                     <div class="overview-wrap">
-                        <h2 class="title-1">Danh sách đĩa</h2>
-                        <button class="au-btn au-btn-icon au-btn--blue" data-toggle="modal" onclick="AddNewItem()">
-                            <i class="zmdi zmdi-plus"></i>add
+                        <h2 class="title-1">Danh sách tiêu đề</h2>
+                        <button class="au-btn au-btn-icon au-btn--blue" data-toggle="modal" onclick="AddNewTitle()">
+                            <i class="zmdi zmdi-plus"></i>Add
                         </button>
                     </div>
                 </div>
@@ -96,14 +88,14 @@
                         <table class="table table-borderless table-striped table-earning" id="myDatatable">
                             <thead>
                                 <tr>
-                                    <th>Mã Đĩa</th>
-                                    <th>Tựa Đĩa</th>
-                                    <th>Loại Đĩa</th>
-                                    <th>Trạng Thái</th>
+                                    <th>Mã Tiêu Đề</th>
+                                    <th>Tiêu Đề</th>
+                                    <th>Loại</th>
+                                    <th>Số lượng bản sao</th>
                                     <th>Action(Delete)</th>
                                 </tr>
                             </thead>
-                            <tbody id="SetItemList" data-toggle="modal">
+                            <tbody id="SetTitleList" data-toggle="modal">
                                 <tr id="LoadingStatus"></tr>
                             </tbody>
 
@@ -129,23 +121,8 @@
 <script>
 
     $(document).ready(function (evt) {
-      
-        //Binding danh sách select Title
-        $.ajax({
-            type: 'Get',
-            url: '/Titles/GetTitlesList',
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            success:
-                function TitleBind(lst) {
-                    var SetData = $("#SelectTitle");
-                    SetData.html("");
-                    $.each(lst, function (index, value) {
-                        var Data = "<option value='" + value.Id_Title + "'>" + value.TitleName + "</option>"
-                        SetData.append(Data);
-                    })
-                }
-        })
+
+        
         //Binding danh sách select TypeDisk
         $.ajax({
             type: 'Get',
@@ -167,21 +144,21 @@
         $.ajax({
             type: 'GET',
             cache: false,
-            url: './GetItemList',
+            url: './GetTitleList',
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             data: JSON.stringify({ input: input1 }),
             success:
-                function DataBind(ItemList) {
+                function DataBind(TitleList) {
                     //This Code For Receive All Data From Controller And Show It In Client Side
-                    var SetData = $("#SetItemList");
-                    $.each(ItemList, function (index, value) {
-                        var Data = "<tr class='row_" + value.Id_Item + "'>" +
-                            "<td onclick='EditItemRecord(" + value.Id_Item + ")'>" + value.Id_Item + "</td>" +
-                            "<td onclick='EditItemRecord(" + value.Id_Item + ")'>" + value.TitleName + "</td>" +                       
-                            "<td onclick='EditItemRecord(" + value.Id_Item + ")'>" + value.TypeName + "</td>" +
-                            "<td onclick='EditItemRecord(" + value.Id_Item + ")'>" + value.Status + "</td>" +
-                            "<td>" + "<a href='#' class='btn btn-danger' onclick='DeleteItemRecord(" + value.Id_Item + ")'><span class='glyphicon glyphicon-trash'>Xóa</span></a>" + "</td>" + "</tr>";
+                    var SetData = $("#SetTitleList");
+                    $.each(TitleList, function (index, value) {
+                        var Data = "<tr class='row_" + value.Id_Title + "'>" +
+                            "<td onclick='EditTitleRecord(" + value.Id_Title + ")'>" + value.Id_Title + "</td>" +
+                            "<td onclick='EditTitleRecord(" + value.Id_Title + ")'>" + value.TitleName + "</td>" +
+                            "<td onclick='EditTitleRecord(" + value.Id_Title + ")'>" + value.TypeName + "</td>" +
+                            "<td onclick='EditTitleRecord(" + value.Id_Title + ")'>" + value.Count + "</td>" +
+                            "<td>" + "<a href='#' class='btn btn-danger' onclick='DeleteTitleRecord(" + value.Id_Title + ")'><span class='glyphicon glyphicon-trash'>Xóa</span></a>" + "</td>" + "</tr>";
                         SetData.append(Data);
                         $("#LoadingStatus").html(" ");
                     })
@@ -195,86 +172,85 @@
         })
 
     });
-    //sự kiện thay đổi Typedisk khi select Title
-    function SelectChange() {
-        var val = document.getElementById('SelectTitle').value;
-        $.ajax({
-            type: 'Get',
-            url: '/TypeDisks/GetTypeByTitle?Id_Title='+val,
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            success:
-                function TitleBind(lst) {
-                    $("#SelectType").val(lst);     
-                }
-        })
-    }
+    ////sự kiện thay đổi Typedisk khi select Title
+    //function SelectChange() {
+    //    var val = document.getElementById('SelectTitle').value;
+    //    $.ajax({
+    //        type: 'Get',
+    //        url: '/TypeDisks/GetTypeByTitle?Id_Title='+val,
+    //        contentType: 'application/json; charset=utf-8',
+    //        dataType: 'json',
+    //        success:
+    //            function TitleBind(lst) {
+    //                $("#SelectType").val(lst);
+    //            }
+    //    })
+    //}
 
 
     //
-    function DeleteItemRecord(itemId) {
+    function DeleteTitleRecord(titleId) {
 
-        alert(itemId);
+        alert(titleId);
     }
 
     //Show The Popup Modal For Add New Customer
-    function AddNewItem(Id_Item) {
-        document.getElementById('SelectType').disabled="true";
-        document.getElementById('Item_Id').hidden = "true";
+    function AddNewTitle(Id_Title) {
+        document.getElementById('Title_Id').hidden = "true";
       //  document.getElementById('Item_Id').innerHTML="Auto";
         $("#form")[0].reset();
-        $("#Item_Id").val(0);
-        $("#ModalTitle").html("Thêm Đĩa");
+        $("#Title_Id").val(0);
+        $("#ModalTitle").html("Thêm Tiêu Đề");
         $("#MyModal").modal();
     }
     //Show The Popup Modal For Edit Customer Record
-    function EditItemRecord(Id_Item) {
-        $("#ModalTitle").html("Cập nhật thông tin đĩa");
+    function EditTitleRecord(Id_Title) {
+        $("#ModalTitle").html("Cập nhật thông tin tiêu đề");
         $("#MyModal").modal();
 
         $.ajax({
             type: "GET",
-            url: '/Item/GetItemById?Id_Item=' + Id_Item,
+            url: '/Titles/GetTitleById?Id_Title=' + Id_Title,
             success: function (data) {
                 var obj = JSON.parse(data);
-                $("#Item_Id").val(obj.Id_Item);
-                $("#SelectTitle").val(obj.Id_Title);
-                $("#SelectType").val(obj.Id_TypeDisk);
-                $("#SelectStatus").val(obj.Status);
-          
+                $("#Title_Id").val(obj.Id_Title);
+                $("#Title_Name").val(obj.TitleName);
+                $("#SelectType").val(obj.Id_Type);
+                
+
             }
         });
     }
     //Save
-    $("#SaveItemRecord").click(function () {
-        
-        var Id_Item = document.getElementById("Item_Id").value;
-        var Id_Title = document.getElementById("SelectTitle").value;
-        var Status = document.getElementById("SelectStatus").value;
+    $("#SaveTitleRecord").click(function () {
+
+        var Id_Title = document.getElementById("Title_Id").value;
+        var Name_Title = document.getElementById("Title_Name").value;
+        var Type = document.getElementById("SelectType").value;
         $.ajax({
             type: "POST",
-            url: "/Item/SaveItemInDatabase?Id_Item=" + Id_Item + "&Id_Title=" + Id_Title + "&Status=" + Status,
-            
+            url: "/Titles/SaveTitleInDatabase?Id_Title=" + Id_Title + "&Name_Title=" + Name_Title + "&Type=" + Type,
+
             success: function () {
                 alert("Success!");
-                window.location.href = "/Item/Index";
+                window.location.href = "/Titles/Index";
                 $("#MyModal").modal("hide");
             }
         })
     })
 
-    var DeleteItemRecord = function (Id_Item) {
-        $("#Item_Id").val(Id_Item);
+    var DeleteTitleRecord = function (Id_Title) {
+        $("#Title_Id").val(Id_Title);
         $("#DeleteConfirmation").modal("show");
     }
     var ConfirmDelete = function () {
-        var Item_Id = $("#Item_Id").val();
+        var Item_Id = $("#Title_Id").val();
         $.ajax({
             type: "POST",
-            url: "/Item/DeleteItemRecord?Id_Item=" + Item_Id,
+            url: "/Titles/DeleteTitleRecord?Id_Title=" + Title_Id,
             success: function (result) {
                 $("#DeleteConfirmation").modal("hide");
-                $(".row_" + Item_Id).remove();
+                $(".row_" + Title_Id).remove();
             },
             error: function () {
 
@@ -283,4 +259,5 @@
         })
     }
 </script>
+
 

@@ -374,6 +374,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Customer\IndexCustomer.cshtml" />
     <Content Include="Views\Item\Index.cshtml" />
+    <Content Include="Views\Titles\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -383,7 +384,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Titles\" />
     <Folder Include="Views\TypeDisks\" />
   </ItemGroup>
   <ItemGroup>
