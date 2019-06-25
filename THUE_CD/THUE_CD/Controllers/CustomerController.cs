@@ -113,10 +113,12 @@ namespace THUE_CD.Controllers
             bool result = false;
             Customer Cus = db.Customers.SingleOrDefault(x => x.Id_Customer == Id_Customer);
 
+
             if (Cus != null)
             {
                 Order Or = db.Orders.SingleOrDefault(x => x.Id_Customer == Id_Customer);
-                if(Or != null)
+
+                if (Or != null)
                 {
                     OrderDetail OrD = db.OrderDetails.SingleOrDefault(x => x.Id_Order == Or.Id_Order);
                     if (OrD != null)
@@ -127,12 +129,10 @@ namespace THUE_CD.Controllers
                         db.SaveChanges();
                         result = true;
                     }
-                    
                 }
                 db.Customers.Remove(Cus);
                 db.SaveChanges();
                 result = true;
-
             }
 
             return Json(result, JsonRequestBehavior.AllowGet);

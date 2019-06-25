@@ -353,7 +353,7 @@
     <Compile Include="Models\Title.cs" />
     <Compile Include="Models\TypeDisk.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModel\ModelCustomer.cs" />
+    <Compile Include="ViewCustomer\ModelCustomer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config">
