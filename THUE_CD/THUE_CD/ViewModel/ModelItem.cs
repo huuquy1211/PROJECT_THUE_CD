@@ -15,13 +15,7 @@ namespace THUE_CD.ViewModel
         public string TitleName { get; set; }
         public string TypeName { get; set; }
 
-        //public ModelItem(Item item)
-        //{
-        //    this.Id_Item = item.Id_Item;
-        //    this.Id_Title = item.Id_Title;
-        //    this.TitleName = item.Titles.Name;
-        //    this.Id_TypeDisk = item.Titles.Id_TypeDisk;
-        //    this.TypeName = item.Titles.TypeDisk.NameType;
-        //}
+       
+        
     }
 }
