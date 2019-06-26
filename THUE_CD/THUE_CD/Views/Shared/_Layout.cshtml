@@ -102,19 +102,45 @@
                                 <i class="fas fa-map-marker-alt"></i>Maps
                             </a>
                         </li>
+                        @*<li class="has-sub">
+                                <a class="js-arrow" href="#">
+                                    <i class="fas fa-copy"></i>Pages
+                                </a>
+                                <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                                    <li>
+                                        <a href="login.html">Login</a>
+                                    </li>
+                                    <li>
+                                        <a href="register.html">Register</a>
+                                    </li>
+                                    <li>
+                                        <a href="forget-pass.html">Forget Password</a>
+                                    </li>
+                                </ul>
+                            </li>*@
+
                         <li class="has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-copy"></i>Pages
+                                <span class="arrow">
+                                    <i class="fas fa-angle-down"></i>
+                                </span>
                             </a>
-                            <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
                                 <li>
-                                    <a href="login.html">Login</a>
+                                    <a href="login.html">
+                                        <i class="fas fa-sign-in-alt"></i>Login
+                                    </a>
                                 </li>
                                 <li>
-                                    <a href="register.html">Register</a>
+                                    <a href="register.html">
+                                        <i class="fas fa-user"></i>Register
+                                    </a>
                                 </li>
                                 <li>
-                                    <a href="forget-pass.html">Forget Password</a>
+                                    <a href="forget-pass.html">
+                                        <i class="fas fa-unlock-alt"></i>Forget Password
+                                    </a>
                                 </li>
                             </ul>
                         </li>
@@ -202,6 +228,30 @@
                                 <i class="fas fa-address-card"></i>Quản lý khách hàng
                             </a>
                         </li>
+
+                        <li class="has-sub">
+                            <a class="js-arrow" href="#">
+                                <i class="fas fa-file-alt"></i>Báo cáo
+                                <span class="arrow">
+                                    <i class="fas fa-angle-down"></i>
+                                </span>
+                            </a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li>
+                                    <a href="@Url.Action("IndexReportCustomer","Report")">
+                                        <i class="fas fa-user"></i>Khách hàng
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("IndexReportTitle","Report")">
+                                        <i class="fas fa-align-left"></i>Tiêu đề
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        
+
                         <li>
                             <a href="form.html">
                                 <i class="far fa-check-square"></i>Forms
@@ -217,22 +267,7 @@
                                 <i class="fas fa-map-marker-alt"></i>Maps
                             </a>
                         </li>
-                        <li class="has-sub">
-                            <a class="js-arrow" href="#">
-                                <i class="fas fa-copy"></i>Pages
-                            </a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li>
-                                    <a href="login.html">Login</a>
-                                </li>
-                                <li>
-                                    <a href="register.html">Register</a>
-                                </li>
-                                <li>
-                                    <a href="forget-pass.html">Forget Password</a>
-                                </li>
-                            </ul>
-                        </li>
+
                         <li class="has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-desktop"></i>UI Elements
@@ -278,7 +313,6 @@
             </div>
         </aside>
         <!-- END MENU SIDEBAR-->
-
         <!-- PAGE CONTAINER-->
         <div class="page-container">
             <!-- HEADER DESKTOP-->
@@ -469,7 +503,7 @@
 
 
 
-    
+
     <!-- Jquery JS-->
     <script src="~/vendor//jquery-3.2.1.min.js"></script>
     <!-- Bootstrap JS-->
@@ -490,9 +524,15 @@
     <script src="~/vendor//chartjs/Chart.bundle.min.js"></script>
     <script src="~/vendor//select2/select2.min.js">
     </script>
+    <script src="~/vendor//vector-map/jquery.vmap.js"></script>
+    <script src="~/vendor//vector-map/jquery.vmap.min.js"></script>
+    <script src="~/vendor//vector-map/jquery.vmap.sampledata.js"></script>
+   <script src="~/vendor//vector-map/jquery.vmap.world.js"></script>
+
 
     <!-- Main JS-->
     <script src="~/js/main.js"></script>
+
 
 </body>
 

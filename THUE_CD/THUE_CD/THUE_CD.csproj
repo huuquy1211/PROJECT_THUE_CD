@@ -138,6 +138,7 @@
     <Content Include="images\icon\logo.png" />
     <Content Include="images\icon\Untitled-1.jpg" />
     <Content Include="js\main.js" />
+    <Content Include="js\Test.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\poppins\poppins-v5-latin-100.eot" />
@@ -333,9 +334,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+<<<<<<< HEAD
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\TitlesController.cs" />
     <Compile Include="Controllers\TypeDisksController.cs" />
+=======
+    <Compile Include="Controllers\ReportController.cs" />
+>>>>>>> f397606c9433407eca98c5567bf2427d82179d54
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -373,8 +378,13 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Customer\IndexCustomer.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Item\Index.cshtml" />
     <Content Include="Views\Titles\Index.cshtml" />
+=======
+    <Content Include="Views\Report\IndexReportCustomer.cshtml" />
+    <Content Include="Views\Report\IndexReportTitle.cshtml" />
+>>>>>>> f397606c9433407eca98c5567bf2427d82179d54
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

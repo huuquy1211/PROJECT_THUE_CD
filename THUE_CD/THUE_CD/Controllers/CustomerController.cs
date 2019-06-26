@@ -30,7 +30,7 @@ namespace THUE_CD.Controllers
             var result = false;
             try
             {
-                if(model.Id_Customer > 0)
+                if (model.Id_Customer > 0)
                 {
                     Customer Cus = db.Customers.SingleOrDefault(x => x.Id_Customer == model.Id_Customer);
                     Cus.FullName = model.FullName;
@@ -65,15 +65,15 @@ namespace THUE_CD.Controllers
         [HttpGet]
         public JsonResult GetCustomerList()
         {
-            List<ModelCustomer> CusList = db.Customers.Select( x=>
-                new ModelCustomer
-                {
-                    Id_Customer = x.Id_Customer,
-                    Address = x.Address,
-                    Fine = x.Fine,
-                    FullName = x.FullName,
-                    Phone =x.Phone
-                }
+            List<ModelCustomer> CusList = db.Customers.Select(x =>
+               new ModelCustomer
+               {
+                   Id_Customer = x.Id_Customer,
+                   Address = x.Address,
+                   Fine = x.Fine,
+                   FullName = x.FullName,
+                   Phone = x.Phone
+               }
                 ).ToList();
             return Json(CusList, JsonRequestBehavior.AllowGet);
         }
@@ -112,14 +112,24 @@ namespace THUE_CD.Controllers
         {
             bool result = false;
             Customer Cus = db.Customers.SingleOrDefault(x => x.Id_Customer == Id_Customer);
-            Order Or = db.Orders.SingleOrDefault(x => x.Id_Customer == Id_Customer);
-            var id_ord = Or.Id_Order;
-            OrderDetail OrD = db.OrderDetails.SingleOrDefault(x => x.Id_Order == id_ord);
 
-            if (Cus != null && Or != null & OrD != null)
+
+            if (Cus != null)
             {
-                db.OrderDetails.Remove(OrD);
-                db.Orders.Remove(Or);
+                Order Or = db.Orders.SingleOrDefault(x => x.Id_Customer == Id_Customer);
+
+                if (Or != null)
+                {
+                    OrderDetail OrD = db.OrderDetails.SingleOrDefault(x => x.Id_Order == Or.Id_Order);
+                    if (OrD != null)
+                    {
+                        db.OrderDetails.Remove(OrD);
+                        db.Orders.Remove(Or);
+                        db.Customers.Remove(Cus);
+                        db.SaveChanges();
+                        result = true;
+                    }
+                }
                 db.Customers.Remove(Cus);
                 db.SaveChanges();
                 result = true;
