@@ -4235,7 +4235,7 @@ section {
     text-transform: capitalize;
     line-height: 1;
     padding: 22px 40px;
-    white-space: nowrap;
+    /*white-space: nowrap;*/
 }
 
 .table-earning thead th.text-right {

@@ -138,12 +138,12 @@
                     var SetData = $("#SetCustomerList");
                     for (var i = 0; i < CusList.length; i++) {
                         var Data = "<tr class='row_" + CusList[i].Id_Customer + "'>" +
-                            "<td onclick='ShowCDCustomer(" + CusList[i].Id_Customer + ")'>" + CusList[i].Id_Customer + "</td>" +
-                            "<td onclick='ShowCDCustomer(" + CusList[i].Id_Customer + ")'>" + CusList[i].FullName + "</td>" +
-                            "<td onclick='ShowCDCustomer(" + CusList[i].Id_Customer + ")'>" + CusList[i].Address + "</td>" +
-                            "<td onclick='ShowCDCustomer(" + CusList[i].Id_Customer + ")'>" + CusList[i].Phone + "</td>" +
-                            "<td onclick='ShowCDCustomer(" + CusList[i].Id_Customer + ")'>" + CusList[i].Fine + "</td>" +
-                            //"<td onclick='ShowCDCustomer(" + CusList[i].Id_Customer + ")'>" + "<a href='#' class='btn btn-warning'><span class='glyphicon glyphicon-edit'></span></a>" + "</td>" +
+                            "<td onclick='EditCustomer(" + CusList[i].Id_Customer + ")'>" + CusList[i].Id_Customer + "</td>" +
+                            "<td onclick='EditCustomer(" + CusList[i].Id_Customer + ")'>" + CusList[i].FullName + "</td>" +
+                            "<td onclick='EditCustomer(" + CusList[i].Id_Customer + ")'>" + CusList[i].Address + "</td>" +
+                            "<td onclick='EditCustomer(" + CusList[i].Id_Customer + ")'>" + CusList[i].Phone + "</td>" +
+                            "<td onclick='EditCustomer(" + CusList[i].Id_Customer + ")'>" + CusList[i].Fine + "</td>" +
+                            //"<td onclick='EditCustomer(" + CusList[i].Id_Customer + ")'>" + "<a href='#' class='btn btn-warning'><span class='glyphicon glyphicon-edit'></span></a>" + "</td>" +
                             "<td>" + "<a href='#' class='btn btn-danger' onclick='DeleteCustomerRecord(" + CusList[i].Id_Customer + ")'><span class='glyphicon glyphicon-trash'>Delete</span></a>" + "</td>" +
                             "</tr>";
                         SetData.append(Data);
@@ -169,11 +169,10 @@
 
         $("#Cus_Fine").val(0).prop("disabled", true);
         //$("#lbFine").hide = true;
-        
     }
 
     //Show The Popup Modal For Edit Customer Record
-    function ShowCDCustomer(Id_Customer) {
+    function EditCustomer(Id_Customer) {
         $("#ModalTitle").html("Update Customer Record");
         $("#MyModal").modal();
 

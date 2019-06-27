@@ -36,7 +36,9 @@ namespace THUE_CD.Controllers
                    Fine = x.Fine,
                    FullName = x.FullName,
                    Phone = x.Phone,
-                   CountCDBorrow = x.orderList.Sum(y=>y.orderDetailList.Where(z=>z.Status == "CHƯA TRẢ").Count())
+                   //CountCDBorrow = x.orderList.Sum(y=>y.orderDetailList.Where(z=>z.Status == "CHƯA TRẢ").Count())
+                   CountCDBorrow = x.orderList.Sum(y=>y.orderDetailList.Count),
+                   TotalRent = x.orderList.Sum(y => y.TotalRent)
                }
                 ).ToList();
             return Json(CusList, JsonRequestBehavior.AllowGet);
@@ -50,11 +52,13 @@ namespace THUE_CD.Controllers
             var value = db.OrderDetails.Where(x => x.Orders.Id_Customer == Id_Customer).Select(x => new
             {
                 Name = x.Items.Titles.Name,
-                DateReturn = x.DateReturn,
+                DateRent = x.Orders.DateRent,
                 DateDue = x.DateDue,
+                DateReturn = x.DateReturn,
+                RentFee = x.RentFee,
+                LateFee = x.LateFee,
                 Status = x.Status
             }).ToList();
-
 
             return Json(value, JsonRequestBehavior.AllowGet);
         }

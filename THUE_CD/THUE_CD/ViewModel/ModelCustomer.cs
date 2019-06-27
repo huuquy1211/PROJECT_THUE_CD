@@ -15,6 +15,7 @@ namespace THUE_CD.ViewCustomer
         public double Fine { get; set; }
 
         public int CountCDBorrow { get; set; }
+        public double TotalRent { get; set; }
         public virtual ICollection<Order> orderList { get; set; }
         public virtual ICollection<Reservation> ReservationList { get; set; }
         public ModelCustomer()
