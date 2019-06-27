@@ -114,13 +114,6 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="copyright">
-                        <p>Xây dựng phần mềm - Nhóm 5</a>.</p>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
@@ -145,12 +138,12 @@
                     var SetData = $("#SetCustomerList");
                     for (var i = 0; i < CusList.length; i++) {
                         var Data = "<tr class='row_" + CusList[i].Id_Customer + "'>" +
-                            "<td onclick='EditCustomerRecord(" + CusList[i].Id_Customer + ")'>" + CusList[i].Id_Customer + "</td>" +
-                            "<td onclick='EditCustomerRecord(" + CusList[i].Id_Customer + ")'>" + CusList[i].FullName + "</td>" +
-                            "<td onclick='EditCustomerRecord(" + CusList[i].Id_Customer + ")'>" + CusList[i].Address + "</td>" +
-                            "<td onclick='EditCustomerRecord(" + CusList[i].Id_Customer + ")'>" + CusList[i].Phone + "</td>" +
-                            "<td onclick='EditCustomerRecord(" + CusList[i].Id_Customer + ")'>" + CusList[i].Fine + "</td>" +
-                            //"<td onclick='EditCustomerRecord(" + CusList[i].Id_Customer + ")'>" + "<a href='#' class='btn btn-warning'><span class='glyphicon glyphicon-edit'></span></a>" + "</td>" +
+                            "<td onclick='ShowCDCustomer(" + CusList[i].Id_Customer + ")'>" + CusList[i].Id_Customer + "</td>" +
+                            "<td onclick='ShowCDCustomer(" + CusList[i].Id_Customer + ")'>" + CusList[i].FullName + "</td>" +
+                            "<td onclick='ShowCDCustomer(" + CusList[i].Id_Customer + ")'>" + CusList[i].Address + "</td>" +
+                            "<td onclick='ShowCDCustomer(" + CusList[i].Id_Customer + ")'>" + CusList[i].Phone + "</td>" +
+                            "<td onclick='ShowCDCustomer(" + CusList[i].Id_Customer + ")'>" + CusList[i].Fine + "</td>" +
+                            //"<td onclick='ShowCDCustomer(" + CusList[i].Id_Customer + ")'>" + "<a href='#' class='btn btn-warning'><span class='glyphicon glyphicon-edit'></span></a>" + "</td>" +
                             "<td>" + "<a href='#' class='btn btn-danger' onclick='DeleteCustomerRecord(" + CusList[i].Id_Customer + ")'><span class='glyphicon glyphicon-trash'>Delete</span></a>" + "</td>" +
                             "</tr>";
                         SetData.append(Data);
@@ -180,7 +173,7 @@
     }
 
     //Show The Popup Modal For Edit Customer Record
-    function EditCustomerRecord(Id_Customer) {
+    function ShowCDCustomer(Id_Customer) {
         $("#ModalTitle").html("Update Customer Record");
         $("#MyModal").modal();
 

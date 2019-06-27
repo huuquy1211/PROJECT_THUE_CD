@@ -77,7 +77,7 @@ namespace THUE_CD.Controllers
                 ).ToList();
             return Json(CusList, JsonRequestBehavior.AllowGet);
         }
-
+        //Chỉnh sửa
         public JsonResult GetCustomerById(int Id_Customer)
         {
             Customer model = db.Customers.Where(x => x.Id_Customer == Id_Customer).SingleOrDefault();

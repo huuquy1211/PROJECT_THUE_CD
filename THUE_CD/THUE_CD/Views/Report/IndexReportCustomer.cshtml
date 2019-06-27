@@ -1,7 +1,162 @@
-﻿
+﻿@model THUE_CD.Models.OrderDetail
+
 @{
     ViewBag.Title = "IndexReportCustomer";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="~/js/Test.js"></script>
+
+<!-- FORM LOAD DANH SACH KHACH HANG-->
+<div class="main-content">
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="overview-wrap">
+                        <h2 class="title-1">Customer Report</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <hr />
+                    <div class="table-responsive table--no-card m-b-40 table-data">
+                        <table class="table table-borderless table-striped table-earning table-data3">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Full Name</th>
+                                    <th>Address</th>
+                                    <th>Phone</th>
+                                    <th>Fine</th>
+                                    <th>CD Borrow</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="SetCustomerList" data-toggle="modal">
+                                <tr id="LoadingStatus"></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Form xem chi tiết các CD -->
+<div class="modal fade" id="MyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalTitle">List CD customer</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="m-lg-b-195 table-responsive" method="POST" >
+                    <!-- CD-->
+                    <div class="top-campaign">
+                        <div class="table-responsive">
+                            <table class="table table-top-campaign">
+                                <thead>
+                                    <tr>
+                                        <th>Name CD</th>
+                                        <th>Date Return</th>
+                                        <th>Date Due</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="SetReportCustomerList" data-toggle="modal">
+                                    <tr id="LoadingStatus">
+                                        
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!--  CD-->
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    //Them so 0 truoc ngay thang < 10
+    function padLeft(number) {
+        return ((number < 10) ? "0" : "") + number;
+    }
+
+    //Format ngay thang nam
+    function parseJsonDate(jsonDateString) {
+        var date = new Date(parseInt(jsonDateString.replace('/Date(', '')));
+
+        return padLeft(date.getDate()) + "/" + padLeft(date.getMonth()) + "/" + date.getFullYear();
+    }
+    //View danh sach cac customer
+    $(document).ready(function (evt) {
+        var input1 = "";
+        $.ajax({
+            type: 'GET',
+            cache: false,
+            url: './GetCustomerList',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            data: JSON.stringify({ input: input1 }),
+            success:
+                function DataBind(CusList) {
+                    //This Code For Receive All Data From Controller And Show It In Client Side
+                    var SetData = $("#SetCustomerList");
+                    for (var i = 0; i < CusList.length; i++) {
+                        var Data = "<tr class='row_" + CusList[i].Id_Customer + "'>" +
+                            "<td onclick='ShowCDCustomer(" + CusList[i].Id_Customer + ")'>" + CusList[i].Id_Customer + "</td>" +
+                            "<td onclick='ShowCDCustomer(" + CusList[i].Id_Customer + ")'>" + CusList[i].FullName + "</td>" +
+                            "<td onclick='ShowCDCustomer(" + CusList[i].Id_Customer + ")'>" + CusList[i].Address + "</td>" +
+                            "<td onclick='ShowCDCustomer(" + CusList[i].Id_Customer + ")'>" + CusList[i].Phone + "</td>" +
+                            "<td onclick='ShowCDCustomer(" + CusList[i].Id_Customer + ")'>" + CusList[i].Fine + "</td>" +
+                            "<td onclick='ShowCDCustomer(" + CusList[i].Id_Customer + ")'>" + CusList[i].CountCDBorrow + "</td>" +
+                            "<td>" + "<a href='#' class='btn btn-danger' onclick='DeleteCustomerRecord(" + CusList[i].Id_Customer + ")'><span class='glyphicon glyphicon-trash'>Xem chi tiết</span></a>" + "</td>" +
+                            "</tr>";
+                        SetData.append(Data);
+                        $("#LoadingStatus").html(" ");
+                    }
+                },
+
+            error: function (msg) {
+
+                alert('Không thành công');
+            }
+        })
+    });
+
+    //Hien thi thong tin CD cua khach hang
+    function ShowCDCustomer(Id_Customer) {
+        $("#ModalTitle").html("List CD customer");
+        $("#MyModal").modal();
+
+        $.ajax({
+            type: "GET",
+            url: '/Report/GetCustomerById?Id_Customer=' + Id_Customer,
+            success: function (data) {
+                var SetData = $("#SetReportCustomerList");
+                for (var i = 0; i < data.length; i++) {
+                    var Data =
+                        "<tr class='row_" + data[i].Name + "'>" +
+                        "<td>" + data[i].Name + "</td>" +
+                        "<td>" + parseJsonDate(data[i].DateReturn) + "</td>" +
+                        "<td>" + parseJsonDate(data[i].DateDue) + "</td>" +
+                        "<td>" + data[i].Status + "</td>" +
+                        "</tr>";
+                    SetData.append(Data);
+                }
+            }
+        });
+    }
+</script>

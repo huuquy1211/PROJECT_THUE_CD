@@ -16,6 +16,8 @@ namespace THUE_CD.Models
         public double Fine { get; set; }
 
         public virtual ICollection<Order> orderList { get; set; }
+
+      
         public virtual ICollection<Reservation> ReservationList { get; set; }
         public Customer()
         {
