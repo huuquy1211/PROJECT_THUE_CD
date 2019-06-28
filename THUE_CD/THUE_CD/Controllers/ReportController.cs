@@ -28,18 +28,18 @@ namespace THUE_CD.Controllers
         //Load dữ liệu của khách hàng
         public JsonResult GetCustomerList()
         {
-            List<ModelCustomer> CusList = db.Customers.Where(x=>x.orderList.Count > 0).Select(x =>
-               new ModelCustomer
-               {
-                   Id_Customer = x.Id_Customer,
-                   Address = x.Address,
-                   Fine = x.Fine,
-                   FullName = x.FullName,
-                   Phone = x.Phone,
-                   //CountCDBorrow = x.orderList.Sum(y=>y.orderDetailList.Where(z=>z.Status == "CHƯA TRẢ").Count())
-                   CountCDBorrow = x.orderList.Sum(y=>y.orderDetailList.Count),
-                   TotalRent = x.orderList.Sum(y => y.TotalRent)
-               }
+            List<ModelCustomer> CusList = db.Customers.Where(x => x.orderList.Count > 0).Select(x =>
+                 new ModelCustomer
+                 {
+                     Id_Customer = x.Id_Customer,
+                     Address = x.Address,
+                     Fine = x.Fine,
+                     FullName = x.FullName,
+                     Phone = x.Phone,
+                     //CountCDBorrow = x.orderList.Sum(y=>y.orderDetailList.Where(z=>z.Status == "CHƯA TRẢ").Count())
+                     CountCDBorrow = x.orderList.Sum(y => y.orderDetailList.Count),
+                     TotalRent = x.orderList.Sum(y => y.TotalRent)
+                 }
                 ).ToList();
             return Json(CusList, JsonRequestBehavior.AllowGet);
         }
@@ -61,6 +61,77 @@ namespace THUE_CD.Controllers
             }).ToList();
 
             return Json(value, JsonRequestBehavior.AllowGet);
+        }
+        //Tim khách hàng
+        [HttpGet]
+        public JsonResult GetSearchingData(string SearchBy)
+        {
+            List<ModelCustomer> CusList = new List<ModelCustomer>();
+            if (SearchBy == "0")
+            {
+                try
+                {
+                        CusList = db.Customers.Where(x => x.orderList.Count > 0).Select(x =>
+                     new ModelCustomer
+                     {
+                         Id_Customer = x.Id_Customer,
+                         Address = x.Address,
+                         Fine = x.Fine,
+                         FullName = x.FullName,
+                         Phone = x.Phone,
+                         //CountCDBorrow = x.orderList.Sum(y=>y.orderDetailList.Where(z=>z.Status == "CHƯA TRẢ").Count())
+                         CountCDBorrow = x.orderList.Sum(y => y.orderDetailList.Count),
+                         TotalRent = x.orderList.Sum(y => y.TotalRent)
+                     }
+                    ).ToList();
+                        return Json(CusList, JsonRequestBehavior.AllowGet);
+
+                    //int Id = Convert.ToInt32(SearchBy);
+                    //StuList = db.Customers.Where(x => x.Id_Customer == Id).ToList();
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("{0} Is Not A ID ", SearchBy);
+                }
+                return Json(CusList, JsonRequestBehavior.AllowGet);
+            }
+            else if(SearchBy == "1")
+            {
+                CusList = db.Customers.Where(x => x.orderList.Sum(y => y.orderDetailList.Where(z => z.DateDue < z.DateReturn).Count()) > 0).Select(x =>
+                     new ModelCustomer
+                     {
+                         Id_Customer = x.Id_Customer,
+                         Address = x.Address,
+                         Fine = x.Fine,
+                         FullName = x.FullName,
+                         Phone = x.Phone,
+                         //CountCDBorrow = x.orderList.Sum(y => y.orderDetailList.Where(z => z.LateFee > 0).Count()),
+                         CountCDBorrow = x.orderList.Sum(y => y.orderDetailList.Count),
+                         TotalRent = x.orderList.Sum(y => y.TotalRent)
+                     }
+                    ).ToList();
+                return Json(CusList, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                CusList = db.Customers.Where(x => x.orderList.Sum(y => y.orderDetailList.Where(z => z.RentFee > 0).Count()) > 0).Select(x =>
+                     new ModelCustomer
+                     {
+                         Id_Customer = x.Id_Customer,
+                         Address = x.Address,
+                         Fine = x.Fine,
+                         FullName = x.FullName,
+                         Phone = x.Phone,
+                         //CountCDBorrow = x.orderList.Sum(y => y.orderDetailList.Where(z => z.LateFee > 0).Count()),
+                         CountCDBorrow = x.orderList.Sum(y => y.orderDetailList.Count),
+                         TotalRent = x.orderList.Sum(y => y.TotalRent)
+                     }
+                    ).ToList();
+                return Json(CusList, JsonRequestBehavior.AllowGet);
+                //CusList = db.Customers.Where(x => x.FullName.StartsWith(SearchBy)).ToList();
+                //return Json(CusList, JsonRequestBehavior.AllowGet);
+            }
+
         }
     }
 }

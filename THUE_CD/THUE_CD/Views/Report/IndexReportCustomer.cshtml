@@ -1,4 +1,4 @@
-﻿@model THUE_CD.Models.OrderDetail
+﻿@model IEnumerable<THUE_CD.Models.Customer>
 
 @{
     ViewBag.Title = "IndexReportCustomer";
@@ -8,7 +8,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<script src="~/js/Test.js"></script>
+@*<script src="~/js/Test.js"></script>*@
 
 <!-- FORM LOAD DANH SACH KHACH HANG-->
 <div class="main-content">
@@ -18,13 +18,20 @@
                 <div class="col-md-12">
                     <div class="overview-wrap">
                         <h2 class="title-1">Customer Report</h2>
-                        <div class="col-5 col-md-3">
-                            <select name="select" id="select" class="form-control">
-                                <option value="0">Tất cả khách hàng</option>
-                                <option value="1">Khách hàng quá hạn</option>
-                                <option value="2">Khách hàng nợ</option>
-                            </select>
+                        <div class="col-lg-pull-4">
+
+                            <form class="form-header">
+                                <select name="select" id="SearchBy">
+                                    <option value="0">Tất cả khách hàng</option>
+                                    <option value="1">Khách hàng quá hạn</option>
+                                    <option value="2">Khách hàng nợ</option>
+                                </select>
+                                <button id="SearchBtn" type="submit" class="btn btn-primary">Seach</button>
+                            </form>
                         </div>
+
+
+                        @*@Html.TextBox("Search")<input type="submit" id="SearchBtn" value="Search" /><br /><br />*@
                     </div>
                 </div>
             </div>
@@ -46,6 +53,7 @@
                                     <th></th>
                                 </tr>
                             </thead>
+
                             <tbody id="SetCustomerList" data-toggle="modal">
                                 <tr id="LoadingStatus"></tr>
                             </tbody>
@@ -86,9 +94,7 @@
                                     </tr>
                                 </thead>
                                 <tbody id="SetReportCustomerList" data-toggle="modal">
-                                    <tr id="LoadingStatus">
-                                        
-                                    </tr>
+                                    <tr id="LoadingStatus"></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -113,7 +119,7 @@
     function parseJsonDate(jsonDateString) {
         var date = new Date(parseInt(jsonDateString.replace('/Date(', '')));
 
-        return padLeft(date.getDate()) + "/" + padLeft(date.getMonth()) + "/" + date.getFullYear();
+        return padLeft(date.getDate()) + "/" + padLeft(date.getMonth()+1) + "/" + date.getFullYear();
     }
     //View danh sach cac customer
     $(document).ready(function (evt) {
@@ -179,9 +185,47 @@
                     SetData.append(Data);
                     stt++;
                 }
-                
             }
         });
+        $(this).reven
     }
 
+
+    //Tim khach hang
+    $(document).ready(function () {
+        $("#SearchBtn").click(function (event) {
+            event.preventDefault();
+            var SearchBy = $("#SearchBy").val();
+            var SetData = $("#SetCustomerList");
+            SetData.html("");
+            $.ajax({
+                type: "GET",
+                url: "./GetSearchingData?SearchBy=" + SearchBy,
+                contentType: "html",
+                success: function (result) {
+                    if (result.length == 0) {
+                        SetData.append('<tr style="color:red"><td colspan="3">No Match Data</td></tr>')
+                    }
+                    else {
+                        $.each(result, function (index, value) {
+                            var Data =
+                                "<tr class='row_" + value.Id_Customer + "'>" +
+                                "<td onclick='ShowCDCustomer(" + value.Id_Customer + ")'>" + value.Id_Customer + "</td>" +
+                                "<td onclick='ShowCDCustomer(" + value.Id_Customer + ")'>" + value.FullName + "</td>" +
+                                "<td onclick='ShowCDCustomer(" + value.Id_Customer + ")'>" + value.Address + "</td>" +
+                                "<td onclick='ShowCDCustomer(" + value.Id_Customer + ")'>" + value.Phone + "</td>" +
+                                "<td onclick='ShowCDCustomer(" + value.Id_Customer + ")'>" + value.Fine + "</td>" +
+                                "<td onclick='ShowCDCustomer(" + value.Id_Customer + ")'>" + value.CountCDBorrow + "</td>" +
+                                "<td onclick='ShowCDCustomer(" + value.Id_Customer + ")'>" + value.TotalRent + "</td>" +
+                                "<td>" + "<a href='#' class='btn btn-success' onclick='DeleteCustomerRecord(" + value.Id_Customer + ")'><span>Xuất file Excel</span></a>" + "</td>" +
+                                "</tr>";
+                            SetData.append(Data);
+                            
+                        });
+                        //event.preventDefault();
+                    }
+                }
+            });
+        });
+    });
 </script>
