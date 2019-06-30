@@ -7,7 +7,7 @@ namespace THUE_CD.ViewModel
 {
     public class ModelItem
     {
-        ThueDiaDB db = new ThueDiaDB();
+
         public int Id_Item { get; set; }
         public int Id_Title { get; set; }
         public int Id_TypeDisk { get; set; }
@@ -15,7 +15,12 @@ namespace THUE_CD.ViewModel
         public string TitleName { get; set; }
         public string TypeName { get; set; }
 
-       
-        
+        public int MaxDate { get; set; }
+
+        public double RentFee { get; set; }
+
+        public double LateFee { get; set; }
+
+
     }
 }

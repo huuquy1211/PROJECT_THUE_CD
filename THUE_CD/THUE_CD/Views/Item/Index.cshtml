@@ -4,9 +4,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <!-- MAIN CONTENT-->
 <!-- FORM Item-->
@@ -24,15 +22,14 @@
                 <form class="mt-5" method="POST" id="form">
                     <fieldset id="SubmitForm">
                         <label>Mã Đĩa</label>
-                        @Html.TextBoxFor(m => m.Id_Item , new { @id = "Item_Id", disabled = true } )
+                        @Html.TextBoxFor(m => m.Id_Item, new { @id = "Item_Id", disabled = true })
                         <div class="form-group" id="Title">
                             <label>Tựa Đĩa</label>
-                            <select id="SelectTitle" onchange="SelectChange()">         
-                            </select>
+                            <select id="SelectTitle" onchange="SelectChange()"></select>
                         </div>
                         <div class="form-group" id="TypeDisk">
                             <label>Loại Đĩa</label>
-                            <select id="SelectType" ></select>
+                            <select id="SelectType"></select>
                         </div>
                         <div class="form-group" id="Status">
                             <label>Trạng thái</label>
@@ -47,10 +44,8 @@
                             <button type="button" class="btn btn-primary" id="SaveItemRecord">Xác Nhận</button>
                         </div>
                     </fieldset>
-
                 </form>
             </div>
-
         </div>
     </div>
 </div>
@@ -62,7 +57,6 @@
             <div class="modal-header">
                 <h4 class="modal-title">Xóa Đĩa</h4>
                 <a href="#" class="close" data-dismiss="modal">&times;</a>
-
             </div>
             <div class="modal-body">
                 <h4>Bạn muốn xóa đĩa này?</h4>
@@ -88,7 +82,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-lg-12">
                     <hr />
@@ -106,12 +99,10 @@
                             <tbody id="SetItemList" data-toggle="modal">
                                 <tr id="LoadingStatus"></tr>
                             </tbody>
-
                         </table>
                     </div>
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-md-12">
                     <div class="copyright">
@@ -122,14 +113,12 @@
         </div>
     </div>
 </div>
-
 <!--END MAIN CONTENT-->
-
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script>
 
     $(document).ready(function (evt) {
-      
+
         //Binding danh sách select Title
         $.ajax({
             type: 'Get',
@@ -178,7 +167,7 @@
                     $.each(ItemList, function (index, value) {
                         var Data = "<tr class='row_" + value.Id_Item + "'>" +
                             "<td onclick='EditItemRecord(" + value.Id_Item + ")'>" + value.Id_Item + "</td>" +
-                            "<td onclick='EditItemRecord(" + value.Id_Item + ")'>" + value.TitleName + "</td>" +                       
+                            "<td onclick='EditItemRecord(" + value.Id_Item + ")'>" + value.TitleName + "</td>" +
                             "<td onclick='EditItemRecord(" + value.Id_Item + ")'>" + value.TypeName + "</td>" +
                             "<td onclick='EditItemRecord(" + value.Id_Item + ")'>" + value.Status + "</td>" +
                             "<td>" + "<a href='#' class='btn btn-danger' onclick='DeleteItemRecord(" + value.Id_Item + ")'><span class='glyphicon glyphicon-trash'>Xóa</span></a>" + "</td>" + "</tr>";
@@ -205,7 +194,7 @@
             dataType: 'json',
             success:
                 function TitleBind(lst) {
-                    $("#SelectType").val(lst);     
+                    $("#SelectType").val(lst);
                 }
         })
     }
@@ -241,20 +230,20 @@
                 $("#SelectTitle").val(obj.Id_Title);
                 $("#SelectType").val(obj.Id_TypeDisk);
                 $("#SelectStatus").val(obj.Status);
-          
+
             }
         });
     }
     //Save
     $("#SaveItemRecord").click(function () {
-        
+
         var Id_Item = document.getElementById("Item_Id").value;
         var Id_Title = document.getElementById("SelectTitle").value;
         var Status = document.getElementById("SelectStatus").value;
         $.ajax({
             type: "POST",
             url: "/Item/SaveItemInDatabase?Id_Item=" + Id_Item + "&Id_Title=" + Id_Title + "&Status=" + Status,
-            
+
             success: function () {
                 alert("Success!");
                 window.location.href = "/Item/Index";
@@ -283,4 +272,3 @@
         })
     }
 </script>
-

@@ -1,134 +1,73 @@
-﻿
+﻿@model THUE_CD.Models.Item
+@using THUE_CD.ViewModel;
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <!-- MAIN CONTENT-->
 <div class="main-content" style="padding-top:80px; line-height:1">
     <div class="section__content section__content--p30">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-5">
+                <div class="col-lg-6">
                     <div class="card">
                         <div class="card-header" style="padding: 0.5rem 1.25rem;">
-
-                            <form class="form-header" action="" method="POST">
-                                <input class="au-input au-input--xl" type="text" name="search" placeholder="Tìm kiếm ID khách hàng" style="min-width:260px" />
-                                <button class="au-btn--submit" type="submit">
+                            <form class="form-header">
+                                <input class="au-input au-input--xl" type="text" name="search" id="Search" ; placeholder="Tìm kiếm ID khách hàng" />
+                                <button class="au-btn--submit" type="submit" id="searchbtn" ">
                                     <i class="fa fa-search"></i>
                                 </button>
                             </form>
+                            <div id="thongbao" style="margin-top:3px;color:red;"></div>
                         </div>
                         <div class="card-body">
                             <div class="card-title" style="margin-bottom: -0.25rem;">
                                 <h3 class="text-center title-2" style="font-size: 20px;"><strong>Thông tin khách hàng</strong></h3>
                             </div>
                             <hr>
-                            <form action="" method="post" novalidate="novalidate">
+                            <form action="" method="post" novalidate="novalidate" id="Data">
                                 <div class="form-group">
                                     <label for="cc-payment" class="control-label mb-1">Mã khách hàng:</label>
+                                    <input type="hidden" id="makh" style="float:right; width:65%" />
                                 </div>
                                 <div class="form-group has-success">
                                     <label for="cc-name" class="control-label mb-1">Họ và tên:</label>
-                                    <span class="help-block field-validation-valid" data-valmsg-for="cc-name" data-valmsg-replace="true"></span>
+                                    <input type="hidden" id="hoten" style="float:right; width:65%" />
                                 </div>
                                 <div class="form-group">
                                     <label for="cc-number" class="control-label mb-1">Số điện thoại:</label>
-
-                                    <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span>
+                                    <input type="hidden" id="sdt" style="float:right; width:65%" />
                                 </div>
                                 <div class="form-group">
                                     <label for="cc-number" class="control-label mb-1">Địa chỉ:</label>
-
-                                    <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span>
+                                    <input type="hidden" id="diachi" style="float:right; width:65%" />
                                 </div>
-
+                                <div class="form-group">
+                                    <label for="cc-number" class="control-label mb-1">Nợ phí:</label>
+                                    <input type="hidden" id="nophi" style="float:right; width:65%" />
+                                </div>
                                 <div>
                                     <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
-
                                         <span id="payment-button-amount">Lập phiếu thuê >></span>
-                                        <span id="payment-button-sending" style="display:none;">Sending…</span>
                                     </button>
                                 </div>
                             </form>
                         </div>
                     </div>
-
                 </div>
-                <div class="col-lg-7">
-                    <div class="card">
-                        <div class="card-header" style="font-size: 20px;">
-                            <h3 style="line-height:1.5"> <strong> Thông tin phiếu thuê</strong></h3>
-                        </div>
-                        <div class="card-body card-block">
-                            <form action="" method="post" class="form-horizontal">
-                                <div class="row form-group">
-                                    <div class="col col-md-5">
-                                        <label for="hf-email" class=" form-control-label">Mã phiếu thuê: </label>
-                                    </div>
-                                    <div class="col-12 col-md-7">
-                                        <label></label>
-                                    </div>
-                                </div>
-                                <div class="row form-group">
-                                    <div class="col col-md-5">
-                                        <label for="hf-password" class=" form-control-label">Mã khách hàng:</label>
-                                    </div>
-                                    <div class="col-12 col-md-7">
-                                        <label></label>
-                                    </div>
-                                </div>
-                                <div class="row form-group">
-                                    <div class="col col-md-5">
-                                        <label for="hf-password" class=" form-control-label">Ngày lập:</label>
-                                    </div>
-                                    <div class="col-12 col-md-7">
-                                        <label></label>
-                                    </div>
-                                </div>
-                                <div class="row form-group">
-                                    <div class="col col-md-5">
-                                        <label for="hf-password" class=" form-control-label"></label>
-                                    </div>
-                                    <div class="col-12 col-md-7">
-                                        <label></label>
-                                    </div>
-                                </div>
-                                <div class="row form-group">
-                                    <div class="col col-md-5">
-                                        <label for="hf-password" class=" form-control-label"></label>
-                                    </div>
-                                    <div class="col-12 col-md-7">
-                                        <label></label>
-                                    </div>
-                                </div>
-
-                            </form>
-                        </div>
-                        <div class="card-footer">
-                            <div style="float:right">
-                                <button type="submit" class="btn btn-primary btn-sm">
-                                    <i class="fa fa-dot-circle-o"></i> Hủy
-                                </button>
-                                <button type="reset" class="btn btn-danger btn-sm">
-                                    <i class="fa fa-ban"></i> Xác nhận
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                </div>
-                <div class="col-lg-5">
+                <div class="col-lg-6">
                     <div class="card">
                         <div class="card-header" style="padding: 0.5rem 1.25rem;">
 
                             <form class="form-header" action="" method="POST">
-                                <input class="au-input au-input--xl" type="text" name="search" placeholder="Tìm kiếm ID item" style="min-width:260px" />
-                                <button class="au-btn--submit" type="submit">
+                                <input class="au-input au-input--xl" type="text" name="search" id="SearchItem" ; placeholder="Tìm kiếm ID item" disabled />
+                                <button class="au-btn--submit" type="submit" id="BtnButton" ">
                                     <i class="fa fa-search"></i>
                                 </button>
                             </form>
+                            <div id="thongbao1" style="margin-top:3px;color:red;"></div>
                         </div>
                         <div class="card-body">
                             <div class="card-title" style="margin-bottom: -0.25rem;">
@@ -138,45 +77,40 @@
                             <form action="" method="post" novalidate="novalidate">
                                 <div class="form-group">
                                     <label for="cc-payment" class="control-label mb-1">Tiêu đề:</label>
+                                    <input id="tieude" type="hidden" style="float:right; width:65%" />
                                 </div>
                                 <div class="form-group has-success">
                                     <label for="cc-name" class="control-label mb-1">Loại:</label>
-                                    <span class="help-block field-validation-valid" data-valmsg-for="cc-name" data-valmsg-replace="true"></span>
+                                    <input id="loai" type="hidden" style="float:right; width:65%" />
                                 </div>
                                 <div class="form-group">
                                     <label for="cc-number" class="control-label mb-1">Trạng thái:</label>
-
-                                    <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span>
+                                    <input id="status" type="hidden" style="float:right; width:65%" />
                                 </div>
                                 <div class="form-group">
                                     <label for="cc-number" class="control-label mb-1">Hạn cho thuê:</label>
-
-                                    <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span>
+                                    <input id="hanthue" type="hidden" style="float:right; width:65%" />
                                 </div>
-
+                                <div class="form-group">
+                                    <label for="cc-number" class="control-label mb-1">Giá:</label>
+                                    <input id="gia" type="hidden" style="float:right; width:65%" />
+                                </div>
                                 <div>
-                                    <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
-
+                                    <button id="payment-button1" type="submit" class="btn btn-lg btn-info btn-block">
                                         <span id="payment-button-amount">Thêm >></span>
-                                        <span id="payment-button-sending" style="display:none;">Sending…</span>
                                     </button>
                                 </div>
                             </form>
                         </div>
                     </div>
-
                 </div>
-                <div class="col-lg-7">
-                    <!-- USER DATA-->
-                    @*<div class="menu-sidebar__content js-scrollbar1">
-                        <div class="navbar-sidebar" style="padding:0px">*@
+                <div class="col-lg-12">
                     <div class="user-data m-b-30" style="padding-top:0px; margin-bottom:10px">
                         <div class="card-header" style="font-size: 20px;">
                             <h3 style="line-height:1.5"> <strong> Danh sách cho thuê</strong></h3>
                         </div>
-
                         <div class="table-responsive table-data" style="height:auto">
-                            <table class="table">
+                            <table class="table" id="abc">
                                 <thead>
                                     <tr>
                                         <td>
@@ -187,73 +121,256 @@
                                         </td>
                                         <td>tiêu đề</td>
                                         <td>loại</td>
-                                        <td>giá</td>
-                                        <td>giá</td>
-                                        <td>giá</td>
+                                        <td>ngày cho thuê</td>
+                                        <td>hạn trả</td>
                                         <td>giá</td>
                                         <td></td>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="lst_rent"></tbody>
+                                <tfoot>
                                     <tr>
-                                        <td>
-                                            <label class="au-checkbox">
-                                                <input type="checkbox">
-                                                <span class="au-checkmark"></span>
-                                            </label>
-                                        </td>
-                                        <td>
-                                            <span>tran quang phuc</span>
-                                        </td>
-                                        <td>
-                                            <label>game</label>
-                                        </td>
-                                        <td>
-                                            <label>game</label>
-                                        </td>
                                         <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label class="au-checkbox">
-                                                <input type="checkbox" checked="checked">
-                                                <span class="au-checkmark"></span>
-                                            </label>
-                                        </td>
-                                        <td>
-                                            <div class="table-data__info">
-                                                <h6>lori lynch</h6>
-
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <span class="role user">user</span>
-                                        </td>
-                                        <td>
-                                            <div class="rs-select2--trans rs-select2--sm">
-                                                <select class="js-select2" name="property">
-                                                    <option value="">Full Control</option>
-                                                    <option value="" selected="selected">Post</option>
-                                                    <option value="">Watch</option>
-                                                </select>
-                                                <div class="dropDownSelect2"></div>
-                                            </div>
-                                        </td>
                                         <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td><label style="padding-left:0px;padding-top:14px;font-weight:bold">Tổng tiền:</label></td>
+                                        <td><p style="padding-top:14px;font-weight:bold">100000</p></td>
+                                        <td><button class="btn btn-success" onclick="SaveOrder()">Hoàn Thành</button></td>
                                     </tr>
-
-
-                                </tbody>
+                                </tfoot>
                             </table>
                         </div>
 
                     </div>
                 </div>
-
-
                 <!-- END USER DATA-->
             </div>
         </div>
     </div>
 </div>
 <!--END MAIN CONTENT-->
+
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+<script>
+    var idItem_arr = [];
+    var datetime="";
+    var datetime2 = "";
+    var CusID = "";
+    var k = 0;
+    $(document).ready(function () {
+        $("#searchbtn").click(function (e) {
+            e.preventDefault();
+            var SearchValue = $("#Search").val();
+            $.ajax({
+                type: 'get',
+                cache: false,
+                url: "/Customer/GetCustomerById?Id_Customer=" + SearchValue,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+
+                success:
+                function search(CusList) {
+                    var obj = JSON.parse(CusList);
+                    if (obj == null) {
+
+                        document.getElementById("makh").value = "";
+                        document.getElementById("hoten").value = "";
+                        document.getElementById("sdt").value = "";
+                        document.getElementById("diachi").value = "";
+                        alert("Không tìm thấy");
+                    }
+                    else {
+                        document.getElementById("thongbao").innerHTML = "";
+                        document.getElementById("makh").type = Text;
+                        document.getElementById("makh").value = obj.Id_Customer;
+                        document.getElementById("makh").disabled = true;
+
+                        document.getElementById("hoten").type = Text;
+                        document.getElementById("hoten").value = obj.FullName;
+                        document.getElementById("hoten").disabled = true;
+
+                        document.getElementById("sdt").type = Text;
+                        document.getElementById("sdt").value = obj.Phone;
+                        document.getElementById("sdt").disabled = true;
+
+                        document.getElementById("diachi").type = Text;
+                        document.getElementById("diachi").value = obj.Address;
+                        document.getElementById("diachi").disabled = true;
+                    }
+                },
+                error: function (msg) {
+                    alert("Không tìm thấy");
+                }
+            });
+        });
+        $("#BtnButton").click(function (e) {
+            e.preventDefault();
+            var SearchValue = $("#SearchItem").val();
+            CusID = SearchValue;
+            $.ajax({
+                type: 'post',
+                cache: false,
+                url: "/Home/GetItemById?Id_Item=" + SearchValue,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success:
+                function (CusList) {
+                    var obj = JSON.parse(CusList);
+                    if (obj == null) {
+
+                        document.getElementById("tieude").value = "";
+                        document.getElementById("loai").value = "";
+                        document.getElementById("status").value = "";
+                        document.getElementById("hanthue").value = "";
+                        alert("Không tìm thấy");
+                    }
+                    else {
+                        document.getElementById("thongbao1").innerHTML = "";
+                        document.getElementById("tieude").type = Text;
+                        document.getElementById("tieude").value = obj.Titles.Name;
+                        document.getElementById("tieude").disabled = true;
+
+                        document.getElementById("loai").type = Text;
+                        document.getElementById("loai").value = obj.Titles.TypeDisk.NameType;
+                        document.getElementById("loai").disabled = true;
+
+                        document.getElementById("status").type = Text;
+                        document.getElementById("status").value = obj.Status;
+                        document.getElementById("status").disabled = true;
+
+                        document.getElementById("hanthue").type = Text;
+                        document.getElementById("hanthue").value = obj.Titles.TypeDisk.MaxDate;
+                        document.getElementById("hanthue").disabled = true;
+                    }
+
+                },
+                error: function (msg) {
+                    alert("Không tìm thấy");
+                }
+            });
+        });
+
+        //Them so 0 truoc ngay thang < 10
+        function padLeft(number) {
+            return ((number < 10) ? "0" : "") + number;
+        }
+        // tang numday ngày kể từ ngày dateObj
+        function addDays(dateObj, numDays) {
+            dateObj.setDate(dateObj.getDate() + numDays);
+            return dateObj;
+        }
+
+
+
+        $("#payment-button1").click(function (e) {
+            e.preventDefault();
+            var SearchItem = $("#SearchItem").val();
+            var lst_rent = $('#lst_rent');
+            var d = new Date();
+            datetime = padLeft(d.getDate()) + "/" + padLeft((d.getMonth() + 1)) + "/" + d.getFullYear();
+            for (var i = 0; i < idItem_arr.length; i++) {
+                if (SearchItem == idItem_arr[i]) {
+                    k++;
+                }
+            }
+            if (k == 0) {
+                $.ajax({
+                    type: 'get',
+                    url: "/Item/GetItemById?Id_Item=" + SearchItem,
+                    success: function Add(obj) {
+                        var item = JSON.parse(obj);
+                        var Ret = new Date();
+                        Ret = addDays(d, item.MaxDate);
+                        var month = (Ret.getMonth() + 1);
+                        
+                        datetime2 = padLeft(Ret.getDate()) + "/" + padLeft(month) + "/" + Ret.getFullYear();
+                        var data1 =
+                         "<tr class='row_" + SearchItem + "'>" +
+                            "<td hidden='hidden'><input class='id_item' value='" + item.Id_Item + "'/></td>" +
+                            "<td onclick=''>" +
+                                   "<label class = 'au-checkbox'>" +
+                                       "<input type='checkbox' class='check'>" +
+                                       "<span class='au-checkmark'></span>" +
+                                   "</label>" +
+                            "</td>" +
+                            "<td>" +
+                                   "<span>" + item.TitleName + "</span>" +
+                            "</td>" +
+                            "<td>" +
+                                   "<label>" + item.TypeName + "</label>" +
+                            "</td>" +
+                            "<td>" +
+                                   "<label>" + datetime + "</label>" +
+                            "</td>" +
+                            "<td>" + datetime2 + "</td>" +
+                            "<td>" + item.RentFee + "</td>" +
+                            "<td>" + " <div class='close-product'> <button class='btn btn-danger' onclick='deleteRecordRent(" + SearchItem + ")' style='height:20px;padding-top:0px'>X</button></div>" + "</td>" +
+                       "</tr>";
+                        lst_rent.append(data1);
+                    }
+                });
+                idItem_arr.push(SearchItem);
+            } else {
+                document.getElementById("thongbao1").innerHTML = "ID đã được thêm";
+                k--;
+            }
+        });
+    });
+    //nút xóa sản phẩm thuê
+    function deleteRecordRent(ID) {
+
+        $(".row_" + ID).remove();
+        for (var i = 0; i < idItem_arr.length; i++) {
+            if (idItem_arr[i] == ID) {
+                idItem_arr.splice(i, 1);
+            }
+        }
+    }
+    // nút hoàn thành
+    function SaveOrder() {
+        var lst = JSON.stringify(idItem_arr);
+        $.ajax({
+            type: 'Post',
+            cache: false,
+            url: '/OrderDetails/AddOrder?Lst='+lst+'&date1='+datetime+'&date2='+datetime2+'&CusID=' +CusID,
+            dataType: 'json',
+            success:
+                function Announce() {
+                    alert('thành công');
+
+                },
+
+            error: function () {
+
+                alert('Không thành công');
+            }
+
+        })
+    }
+    //nút lập hóa đơn
+    $("#payment-button").click(function (e) {
+        e.preventDefault();
+        var SearchValue = $("#Search").val();
+        $.ajax({
+            type: 'post',
+            cache: false,
+            url: "/Home/GetCustomerById?Id_Customer=" + SearchValue,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+
+            success:
+            function (CusList) {
+                var obj = JSON.parse(CusList);
+                if (obj == null) {
+                    document.getElementById("SearchItem").disabled = true;
+                }
+                else {
+                    document.getElementById("SearchItem").removeAttribute("disabled");
+                    document.getElementById("Search").disabled = true;
+                }
+            }
+        });
+    });
+</script>

@@ -12,7 +12,7 @@ namespace THUE_CD.Controllers
     public class TypeDisksController : Controller
     {
         ThueDiaDB db = new ThueDiaDB();
-        
+
         // GET: TypeDisks
         public ActionResult Index()
         {
@@ -27,7 +27,7 @@ namespace THUE_CD.Controllers
             }).ToList();
             return Json(value, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult GetTypeByTitle(int Id_Title )
+        public JsonResult GetTypeByTitle(int Id_Title)
         {
             TypeDisk vc = db.Titles.Where(x => x.Id_Title == Id_Title).First().TypeDisk;
             string value = string.Empty;

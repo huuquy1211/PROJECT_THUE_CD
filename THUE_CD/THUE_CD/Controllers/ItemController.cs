@@ -22,22 +22,31 @@ namespace THUE_CD.Controllers
         public JsonResult GetItemById(int Id_Item)
         {
             Item model = db.Items.Where(x => x.Id_Item == Id_Item).SingleOrDefault();
-            ModelItem v = new ModelItem
+            if (model != null)
             {
-                Id_Item = model.Id_Item,
-                Id_Title = model.Id_Title,
-                Id_TypeDisk = model.Titles.Id_TypeDisk,
-                TitleName = model.Titles.Name,
-                TypeName = model.Titles.TypeDisk.NameType,
-                Status = model.Status
-            };
-            string value = string.Empty;
+                ModelItem v = new ModelItem
+                {
+                    Id_Item = model.Id_Item,
+                    Id_Title = model.Id_Title,
+                    Id_TypeDisk = model.Titles.Id_TypeDisk,
+                    TitleName = model.Titles.Name,
+                    TypeName = model.Titles.TypeDisk.NameType,
+                    Status = model.Status,
+                    RentFee = model.Titles.TypeDisk.RentPrice,
+                    LateFee = model.Titles.TypeDisk.LateFee,
+                    MaxDate = model.Titles.TypeDisk.MaxDate
 
-            value = JsonConvert.SerializeObject(v, Formatting.Indented, new JsonSerializerSettings
-            {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            });
-            return Json(value, JsonRequestBehavior.AllowGet);
+                };
+                string value = string.Empty;
+
+                value = JsonConvert.SerializeObject(v, Formatting.Indented, new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                });
+                return Json(value, JsonRequestBehavior.AllowGet);
+            }
+            return Json(null, JsonRequestBehavior.AllowGet);
+
         }
 
         [HttpGet]
@@ -51,7 +60,10 @@ namespace THUE_CD.Controllers
                    Id_TypeDisk = x.Titles.Id_TypeDisk,
                    TitleName = x.Titles.Name,
                    TypeName = x.Titles.TypeDisk.NameType,
-                   Status = x.Status
+                   Status = x.Status,
+                   RentFee = x.Titles.TypeDisk.RentPrice,
+                   LateFee = x.Titles.TypeDisk.LateFee,
+                   MaxDate = x.Titles.TypeDisk.MaxDate
                }).ToList();
             return Json(ItemList, JsonRequestBehavior.AllowGet);
         }

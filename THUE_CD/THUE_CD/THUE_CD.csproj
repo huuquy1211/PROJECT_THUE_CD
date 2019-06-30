@@ -334,10 +334,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-	<Compile Include="Controllers\ItemController.cs" />
+    <Compile Include="Controllers\ItemController.cs" />
+    <Compile Include="Controllers\OrderDetailsController.cs" />
     <Compile Include="Controllers\TitlesController.cs" />
     <Compile Include="Controllers\TypeDisksController.cs" />
-	<Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -375,9 +376,9 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Customer\IndexCustomer.cshtml" />
-<Content Include="Views\Item\Index.cshtml" />
+    <Content Include="Views\Item\Index.cshtml" />
     <Content Include="Views\Titles\Index.cshtml" />
-	<Content Include="Views\Report\IndexReportCustomer.cshtml" />
+    <Content Include="Views\Report\IndexReportCustomer.cshtml" />
     <Content Include="Views\Report\IndexReportTitle.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
