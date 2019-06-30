@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="overview-wrap">
-                        <h2 class="title-1">Customer Report</h2>
+                        <h2 class="title-1">Báo cáo khách hàng</h2>
                         <div class="col-lg-pull-4">
 
                             <form class="form-header">
@@ -26,7 +26,7 @@
                                     <option value="1">Khách hàng quá hạn</option>
                                     <option value="2">Khách hàng nợ</option>
                                 </select>
-                                <button id="SearchBtn" type="submit" class="btn btn-primary">Seach</button>
+                                <button id="SearchBtn" type="submit" class="btn btn-primary">Tìm</button>
                             </form>
                         </div>
 
@@ -57,6 +57,7 @@
                             <tbody id="SetCustomerList" data-toggle="modal">
                                 <tr id="LoadingStatus"></tr>
                             </tbody>
+
                         </table>
                     </div>
                 </div>
@@ -83,6 +84,10 @@
                             <table class="table table-top-campaign">
                                 <thead>
                                     <tr>
+                                        <th>Tổng tiền phạt: &ensp;<span id="ViewTongTienPhat"> aaaa</span></th>
+                                    </tr>
+
+                                    <tr>
                                         <th>STT</th>
                                         <th>Tên CD</th>
                                         <th>Ngày Thuê</th>
@@ -92,9 +97,11 @@
                                         <th>Tiền Trả Muộn</th>
                                         <th>Trạng Thái</th>
                                     </tr>
+
                                 </thead>
                                 <tbody id="SetReportCustomerList" data-toggle="modal">
                                     <tr id="LoadingStatus"></tr>
+
                                 </tbody>
                             </table>
                         </div>
@@ -144,7 +151,7 @@
                             "<td onclick='ShowCDCustomer(" + CusList[i].Id_Customer + ")'>" + CusList[i].Fine + "</td>" +
                             "<td onclick='ShowCDCustomer(" + CusList[i].Id_Customer + ")'>" + CusList[i].CountCDBorrow + "</td>" +
                             "<td onclick='ShowCDCustomer(" + CusList[i].Id_Customer + ")'>" + CusList[i].TotalRent + "</td>" +
-                            "<td>" + "<a href='#' class='btn btn-success' onclick='DeleteCustomerRecord(" + CusList[i].Id_Customer + ")'><span>Xuất file Excel</span></a>" + "</td>" +
+                            "<td>" + "<a href='#' class='btn btn-success' onclick='ShowCDCustomer(" + CusList[i].Id_Customer + ")'><span>Xem chi tiết</span></a>" + "</td>" +
                             "</tr>";
                         SetData.append(Data);
                         $("#LoadingStatus").html(" ");
@@ -170,6 +177,7 @@
                 var SetData = $("#SetReportCustomerList");
                 SetData.html("");
                 var stt = 1;
+                var TongTienPhat = 0;
                 for (var i = 0; i < data.length; i++) {
                     var Data =
                         "<tr class='row_" + data[i].Name + "'>" +
@@ -184,7 +192,11 @@
                         "</tr>";
                     SetData.append(Data);
                     stt++;
+                    TongTienPhat += data[i].RentFee;
                 }
+                $("#ViewTongTienPhat").html(TongTienPhat + " vnđ");
+                var dev = document.getElementById("ViewTongTienPhat");
+                dev.style.color = "red";
             }
         });
         $(this).reven
@@ -217,7 +229,7 @@
                                 "<td onclick='ShowCDCustomer(" + value.Id_Customer + ")'>" + value.Fine + "</td>" +
                                 "<td onclick='ShowCDCustomer(" + value.Id_Customer + ")'>" + value.CountCDBorrow + "</td>" +
                                 "<td onclick='ShowCDCustomer(" + value.Id_Customer + ")'>" + value.TotalRent + "</td>" +
-                                "<td>" + "<a href='#' class='btn btn-success' onclick='DeleteCustomerRecord(" + value.Id_Customer + ")'><span>Xuất file Excel</span></a>" + "</td>" +
+                                "<td>" + "<a href='#' class='btn btn-success' onclick='ShowCDCustomer(" + value.Id_Customer + ")'><span>Xem chi tiết</span></a>" + "</td>" +
                                 "</tr>";
                             SetData.append(Data);
                             

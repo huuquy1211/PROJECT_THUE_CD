@@ -4,5 +4,132 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>IndexReportTitle</h2>
+<!-- FORM LOAD DANH SACH TITLE-->
+<div class="main-content">
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="overview-wrap">
+                        <h2 class="title-1">Báo cáo tiêu đề</h2>
+                        <div class="col-lg-pull-4">
+
+                            <form class="form-header">
+                                <select name="select" id="SearchBy">
+                                    <option value="0">Tất cả bản sao</option>
+                                    <option value="1">Bản sao đang cho thuê</option>
+                                    <option value="2">Bản sao đặt trước</option>
+                                    <option value="2">Bản sao trong kho</option>
+                                </select>
+                                <button id="SearchBtn" type="submit" class="btn btn-primary">Tìm</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <hr />
+                    <div class="table-responsive table--no-card m-b-40 table-data">
+                        <table class="table table-borderless table-striped table-earning table-data3">
+                            <thead>
+                                <tr>
+                                    <th>Mã tiêu đề</th>
+                                    <th>Tên tiêu đề</th>
+                                    <th>Loại đĩa</th>
+                                    <th>Số lượng</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="SetTitleList" data-toggle="modal">
+                                <tr id="LoadingStatus"></tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--END MAIN CONTENT-->
+
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script>
+    //View danh sach cac customer
+    $(document).ready(function (evt) {
+        var input1 = "";
+        $.ajax({
+            type: 'GET',
+            cache: false,
+            url: './GetTitleList',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            data: JSON.stringify({ input: input1 }),
+            success:
+                function DataBind(TitleList) {
+                    //This Code For Receive All Data From Controller And Show It In Client Side
+                    var SetData = $("#SetTitleList");
+                    for (var i = 0; i < TitleList.length; i++) {
+                        var Data = "<tr class='row_" + TitleList[i].Id_Title + "'>" +
+                            "<td onclick='ShowCDCustomer(" + TitleList[i].Id_Title + ")'>" + TitleList[i].Id_Title + "</td>" +
+                            "<td onclick='ShowCDCustomer(" + TitleList[i].Id_Title + ")'>" + TitleList[i].Name + "</td>" +
+                            "<td onclick='ShowCDCustomer(" + TitleList[i].Id_Title + ")'>" + TitleList[i].NameType + "</td>" +
+                            "<td onclick='ShowCDCustomer(" + TitleList[i].Id_Title + ")'>" + TitleList[i].CountOfItem + "</td>" +
+                            "<td>" + "<a href='#' class='btn btn-success' onclick='ShowCDCustomer(" + TitleList[i].Id_Title + ")'><span>Xem chi tiết</span></a>" + "</td>" +
+                            "</tr>";
+                        SetData.append(Data);
+                        $("#LoadingStatus").html(" ");
+                    }
+                },
+
+            error: function (msg) {
+
+                alert('Không thành công');
+            }
+        })
+    });
+
+    //Hien thi thong tin các item
+    function ShowCDCustomer(Id_Customer) {
+        $("#ModalTitle").html("List CD customer");
+        $("#MyModal").modal();
+
+        $.ajax({
+            type: "GET",
+            url: '/Report/GetCustomerById?Id_Customer=' + Id_Customer,
+            success: function (data) {
+                var SetData = $("#SetReportCustomerList");
+                SetData.html("");
+                var stt = 1;
+                var TongTienPhat = 0;
+                for (var i = 0; i < data.length; i++) {
+                    var Data =
+                        "<tr class='row_" + data[i].Name + "'>" +
+                        "<td>" + stt + "</td>" +
+                        "<td>" + data[i].Name + "</td>" +
+                        "<td>" + parseJsonDate(data[i].DateRent) + "</td>" +
+                        "<td>" + parseJsonDate(data[i].DateDue) + "</td>" +
+                        "<td>" + parseJsonDate(data[i].DateReturn) + "</td>" +
+                        "<td>" + data[i].LateFee + "</td>" +
+                        "<td>" + data[i].RentFee + "</td>" +
+                        "<td>" + data[i].Status + "</td>" +
+                        "</tr>";
+                    SetData.append(Data);
+                    stt++;
+                    TongTienPhat += data[i].RentFee;
+                }
+                $("#ViewTongTienPhat").html(TongTienPhat + " vnđ");
+                var dev = document.getElementById("ViewTongTienPhat");
+                dev.style.color = "red";
+            }
+        });
+        $(this).reven
+    }
+
+</script>
 

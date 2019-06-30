@@ -44,6 +44,21 @@ namespace THUE_CD.Controllers
             return Json(CusList, JsonRequestBehavior.AllowGet);
         }
 
+        //Load dữ liệu của tiêu đề
+        public JsonResult GetTitleList()
+        {
+            var TitleList = db.Titles.Select(x => new
+            {
+                Id_Title = x.Id_Title,
+                Name = x.Name,
+                NameType = x.TypeDisk.NameType,
+                CountOfItem = x.CountOfItem
+
+            }).ToList();
+
+            return Json(TitleList, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpGet]
         //Load danh sach cac CD
         public JsonResult GetCustomerById(int Id_Customer)
