@@ -52,11 +52,31 @@ namespace THUE_CD.Controllers
                 Id_Title = x.Id_Title,
                 Name = x.Name,
                 NameType = x.TypeDisk.NameType,
-                CountOfItem = x.CountOfItem
+                //CountCDBorrow = x.orderList.Sum(y=>y.orderDetailList.Where(z=>z.Status == "CHƯA TRẢ").Count())
+                CountOfItemOnShelf = x.ItemList.Where(y => y.Status == "On-Shelf").Count(),
+                CountOfItemOnHold = x.ItemList.Where(y => y.Status == "On-Hold").Count(),
+                CountOfItemRented = x.ItemList.Where(y => y.Status == "Rented").Count(),
 
             }).ToList();
 
             return Json(TitleList, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        //Load danh sach cac CD theo Title
+        public JsonResult GetCDTitleById(int Id_Title)
+        {
+
+            var value = db.Items.Where(x => x.Titles.Id_Title == Id_Title).Select(x => new
+            {
+                Name = x.Titles.Name,
+                TypeDisk = x.Titles.TypeDisk.NameType,
+                RentPrice = x.Titles.TypeDisk.RentPrice,
+                MaxDate = x.Titles.TypeDisk.MaxDate,
+                Status = x.Status
+            }).ToList();
+
+            return Json(value, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
