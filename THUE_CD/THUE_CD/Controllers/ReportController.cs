@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using THUE_CD.Models;
+using THUE_CD.ViewModel.ModelCustomer;
 using THUE_CD.ViewCustomer;
 
 namespace THUE_CD.Controllers
